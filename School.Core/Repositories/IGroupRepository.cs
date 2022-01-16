@@ -9,7 +9,7 @@ namespace School.Core.Repositories
     {
         Task<Group> GetGroupWithStudentsAsync(int groupId);
         Task<IEnumerable<Group>> GetGroupListAsync();
-        Task<IEnumerable<Group>> GetGrouptByNameAsync(string name);
+        Task<IEnumerable<Group>> GetGroupByNameAsync(string name);
         Task<IEnumerable<Group>> GetGroupByCourseAsync(int courseId);
     }
 }
