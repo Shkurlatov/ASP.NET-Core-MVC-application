@@ -6,6 +6,8 @@ namespace School.Application.Interfaces
 {
     public interface ICourseService
     {
+        Task<CourseModel> GetCourseById(int courseId);
         Task<IEnumerable<CourseModel>> GetCourseList();
+        Task<IEnumerable<CourseModel>> GetCourseByName(string name);       
     }
 }

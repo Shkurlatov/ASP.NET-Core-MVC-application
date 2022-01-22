@@ -1,0 +1,73 @@
+﻿@page
+@model School.Web.Pages.Group.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Group List</h2>
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <span class="input-group-btn">
+                <button class="btn btn-default">
+                    Search
+                </button>
+            </span>
+        </div>
+    </div>
+</form>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Group Name</th>
+            <th scope="col">Course</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model.GroupList)
+        {
+        <tr>
+            <td>
+                <a class="btn"
+                   asp-page="/Student/Index"
+                   asp-route-groupId="@group.Id">
+                    @group.Name
+                </a>
+            </td>
+            <td>
+                <a class="btn"
+                   asp-page="/Course/Index"
+                   asp-route-courseId="@group.CourseId">
+                    @Html.DisplayFor(modelItem => group.Course.Name)
+                </a>
+            </td>
+            <td>
+                <a class="btn"
+                   asp-page="./Details"
+                   asp-route-groupId="@group.Id">
+                    Details
+                </a>
+                <a class="btn"
+                   asp-page="./Edit"
+                   asp-route-groupId="@group.Id">
+                    Edit
+                </a>
+                <a class="btn"
+                   asp-page="./Delete"
+                   asp-route-groupId="@group.Id">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -7,7 +7,7 @@ namespace School.Core.Repositories
 {
     public interface IGroupRepository : IRepository<Group>
     {
-        Task<Group> GetGroupWithStudentsAsync(int groupId);
+        Task<Group> GetGroupByIdAsync(int groupId);
         Task<IEnumerable<Group>> GetGroupListAsync();
         Task<IEnumerable<Group>> GetGroupByNameAsync(string name);
         Task<IEnumerable<Group>> GetGroupByCourseAsync(int courseId);

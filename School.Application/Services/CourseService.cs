@@ -20,10 +20,24 @@ namespace School.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        public async Task<CourseModel> GetCourseById(int courseId)
+        {
+            var course = await _courseRepository.GetCourseByIdAsync(courseId);
+            var mapped = ObjectMapper.Mapper.Map<CourseModel>(course);
+            return mapped;
+        }
+
         public async Task<IEnumerable<CourseModel>> GetCourseList()
         {
             var course = await _courseRepository.GetAllAsync();
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<CourseModel>>(course);
+            return mapped;
+        }
+
+        public async Task<IEnumerable<CourseModel>> GetCourseByName(string name)
+        {
+            var courseList = await _courseRepository.GetCourseByNameAsync(name);
+            var mapped = ObjectMapper.Mapper.Map<IEnumerable<CourseModel>>(courseList);
             return mapped;
         }
     }

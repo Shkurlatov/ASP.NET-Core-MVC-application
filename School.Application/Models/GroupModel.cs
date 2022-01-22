@@ -1,4 +1,5 @@
 ﻿using School.Application.Models.Base;
+using System.Collections.Generic;
 
 namespace School.Application.Models
 {
@@ -7,5 +8,6 @@ namespace School.Application.Models
         public int CourseId { get; set; }
         public string Name { get; set; }
         public CourseModel Course { get; set; }
+        public ICollection<StudentModel> Students { get; private set; }
     }
 }

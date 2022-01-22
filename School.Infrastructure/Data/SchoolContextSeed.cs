@@ -25,10 +25,10 @@ namespace School.Infrastructure.Data
                 schoolContext.Courses.AddRange(GetPreconfiguredCourses());
                 await schoolContext.SaveChangesAsync();
 
-                schoolContext.Groups.AddRange(GetPreconfiguredGroups());
+                schoolContext.Groups.AddRange(GetPreconfiguredGroups(schoolContext.Courses));
                 await schoolContext.SaveChangesAsync();
 
-                schoolContext.Students.AddRange(GetPreconfiguredStudents());
+                schoolContext.Students.AddRange(GetPreconfiguredStudents(schoolContext.Groups));
                 await schoolContext.SaveChangesAsync();
             }
             catch (Exception exception)
@@ -76,280 +76,280 @@ namespace School.Infrastructure.Data
             };
         }
 
-        private static IEnumerable<Group> GetPreconfiguredGroups()
+        private static IEnumerable<Group> GetPreconfiguredGroups(IEnumerable<Course> courses)
         {
             return new List<Group>()
             {
                 new Group
                 {
-                    CourseId = 1,
+                    CourseId = courses.Single( c => c.Name == "Java Spring").Id,
                     Name = "SR-01"
                 },
                 new Group
                 {
-                    CourseId = 2,
+                    CourseId = courses.Single( c => c.Name == "C#/.Net").Id,
                     Name = "SR-02"
                 },
                 new Group
                 {
-                    CourseId = 1,
+                    CourseId = courses.Single( c => c.Name == "Java Spring").Id,
                     Name = "SR-03"
                 },
                 new Group
                 {
-                    CourseId = 3,
+                    CourseId = courses.Single( c => c.Name == "Automation QA").Id,
                     Name = "SR-04"
                 },
                 new Group
                 {
-                    CourseId = 4,
+                    CourseId = courses.Single( c => c.Name == "Phyton").Id,
                     Name = "SR-05"
                 },
                 new Group
                 {
-                    CourseId = 2,
+                    CourseId = courses.Single( c => c.Name == "C#/.Net").Id,
                     Name = "SR-06"
                 },
                 new Group
                 {
-                    CourseId = 1,
+                    CourseId = courses.Single( c => c.Name == "Java Spring").Id,
                     Name = "SR-07"
                 },
                 new Group
                 {
-                    CourseId = 5,
+                    CourseId = courses.Single( c => c.Name == "Game Dev").Id,
                     Name = "SR-08"
                 }
             };
         }
 
-        private static IEnumerable<Student> GetPreconfiguredStudents()
+        private static IEnumerable<Student> GetPreconfiguredStudents(IEnumerable<Group> groups)
         {
             return new List<Student>()
             {
-                new Student
+                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Bryan", LastName = "Cranston"
                 },
                 new Student
                 {
-                    GroupId = 5,
+                    GroupId = groups.Single( g => g.Name == "SR-05").Id,
                     FirstName = "Anna", LastName = "Gunn"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Aaron", LastName = "Paul"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Dean", LastName = "Norris"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Betsy", LastName = "Brandt"
                 },
                 new Student
                 {
-                    GroupId = 4,
+                    GroupId = groups.Single( g => g.Name == "SR-04").Id,
                     FirstName = "RJ", LastName = "Mitte"
                 },
                 new Student
                 {
-                    GroupId = 7,
+                    GroupId = groups.Single( g => g.Name == "SR-07").Id,
                     FirstName = "Giancarlo", LastName = "Esposito"
                 },
                 new Student
                 {
-                    GroupId = 3,
+                    GroupId = groups.Single( g => g.Name == "SR-03").Id,
                     FirstName = "Bob", LastName = "Odenkirk"
                 },
                 new Student
                 {
-                    GroupId = 6,
+                    GroupId = groups.Single( g => g.Name == "SR-06").Id,
                     FirstName = "Jonathan", LastName = "Banks"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Laura", LastName = "Fraser"
                 },
                 new Student
                 {
-                    GroupId = 4,
+                    GroupId = groups.Single( g => g.Name == "SR-04").Id,
                     FirstName = "Jesse", LastName = "Plemons"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Steven", LastName = "Quezada"
                 },
                 new Student
                 {
-                    GroupId = 3,
+                    GroupId = groups.Single( g => g.Name == "SR-03").Id,
                     FirstName = "Charles", LastName = "Baker"
                 },
                 new Student
                 {
-                    GroupId = 4,
+                    GroupId = groups.Single( g => g.Name == "SR-04").Id,
                     FirstName = "Christopher", LastName = "Cousins"
                 },
                 new Student
                 {
-                    GroupId = 6,
+                    GroupId = groups.Single( g => g.Name == "SR-06").Id,
                     FirstName = "Matt", LastName = "Jones"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Lavell", LastName = "Crawford"
                 },
                 new Student
                 {
-                    GroupId = 5,
+                    GroupId = groups.Single( g => g.Name == "SR-05").Id,
                     FirstName = "Michael", LastName = "Wiles"
                 },
                 new Student
                 {
-                    GroupId = 8,
+                    GroupId = groups.Single( g => g.Name == "SR-08").Id,
                     FirstName = "Ray", LastName = "Campbell"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Emily", LastName = "Rios"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Carmen", LastName = "Serano"
                 },
                 new Student
                 {
-                    GroupId = 4,
+                    GroupId = groups.Single( g => g.Name == "SR-04").Id,
                     FirstName = "Krysten", LastName = "Ritter"
                 },
                 new Student
                 {
-                    GroupId = 7,
+                    GroupId = groups.Single( g => g.Name == "SR-07").Id,
                     FirstName = "Mark", LastName = "Margolis"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "David", LastName = "Costabile"
                 },
                 new Student
                 {
-                    GroupId = 3,
+                    GroupId = groups.Single( g => g.Name == "SR-03").Id,
                     FirstName = "Michael", LastName = "Bowen"
                 },
                 new Student
                 {
-                    GroupId = 6,
+                    GroupId = groups.Single( g => g.Name == "SR-06").Id,
                     FirstName = "Kevin", LastName = "Rankin"
                 },
                 new Student
                 {
-                    GroupId = 4,
+                    GroupId = groups.Single( g => g.Name == "SR-04").Id,
                     FirstName = "Daniel", LastName = "Moncada"
                 },
                 new Student
                 {
-                    GroupId = 5,
+                    GroupId = groups.Single( g => g.Name == "SR-05").Id,
                     FirstName = "Jessica", LastName = "Hecht"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Luis", LastName = "Moncada"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Bill", LastName = "Burr"
                 },
                 new Student
                 {
-                    GroupId = 7,
+                    GroupId = groups.Single( g => g.Name == "SR-07").Id,
                     FirstName = "Tom", LastName = "Kiesche"
                 },
                 new Student
                 {
-                    GroupId = 4,
+                    GroupId = groups.Single( g => g.Name == "SR-04").Id,
                     FirstName = "Tess", LastName = "Harper"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "John", LastName = "de Lancie"
                 },
                 new Student
                 {
-                    GroupId = 3,
+                    GroupId = groups.Single( g => g.Name == "SR-03").Id,
                     FirstName = "Maurice", LastName = "Compte"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Jere", LastName = "Burns"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Nigel", LastName = "Gibbs"
                 },
                 new Student
                 {
-                    GroupId = 7,
+                    GroupId = groups.Single( g => g.Name == "SR-07").Id,
                     FirstName = "Raymond", LastName = "Cruz"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Michael", LastName = "Bofshever"
                 },
                 new Student
                 {
-                    GroupId = 5,
+                    GroupId = groups.Single( g => g.Name == "SR-05").Id,
                     FirstName = "Louis", LastName = "Ferreira"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Mike", LastName = "Batayeh"
                 },
                 new Student
                 {
-                    GroupId = 8,
+                    GroupId = groups.Single( g => g.Name == "SR-08").Id,
                     FirstName = "Gonzalo", LastName = "Menendez"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Adam", LastName = "Godley"
                 },
                 new Student
                 {
-                    GroupId = 6,
+                    GroupId = groups.Single( g => g.Name == "SR-06").Id,
                     FirstName = "BrJavieryan", LastName = "Grajeda"
                 },
                 new Student
                 {
-                    GroupId = 2,
+                    GroupId = groups.Single( g => g.Name == "SR-02").Id,
                     FirstName = "Max", LastName = "Arciniega"
                 },
                 new Student
                 {
-                    GroupId = 1,
+                    GroupId = groups.Single( g => g.Name == "SR-01").Id,
                     FirstName = "Julie", LastName = "Dretzin"
                 },
                 new Student
                 {
-                    GroupId = 3,
+                    GroupId = groups.Single( g => g.Name == "SR-03").Id,
                     FirstName = "Julia", LastName = "Minesci"
                 }
             };

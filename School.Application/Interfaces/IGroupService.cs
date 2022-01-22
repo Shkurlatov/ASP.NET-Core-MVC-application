@@ -6,6 +6,7 @@ namespace School.Application.Interfaces
 {
     public interface IGroupService
     {
+        Task<GroupModel> GetGroupWithStudents(int groupId);
         Task<IEnumerable<GroupModel>> GetGroupList();
         Task<GroupModel> GetGroupById(int groupId);
         Task<IEnumerable<GroupModel>> GetGroupByName(string name);

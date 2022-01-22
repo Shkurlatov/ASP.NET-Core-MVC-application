@@ -18,21 +18,27 @@ namespace School.Infrastructure.Repository
 
         public async Task<IEnumerable<Student>> GetStudentListAsync()
         {
-            var spec = new StudentWithGroupSpecification();
+            var spec = new StudentByNameSpecification();
             return await GetAsync(spec);
         }
 
-        public async Task<IEnumerable<Student>> GetStudentByLastNameAsync(string lastName)
+        public async Task<Student> GetStudentByIdAsync(int studentId)
         {
-            var spec = new StudentWithGroupSpecification(lastName);
+            var spec = new StudentByIdSpecification(studentId);
+            var student = (await GetAsync(spec)).FirstOrDefault();
+            return student;
+        }
+
+        public async Task<IEnumerable<Student>> GetStudentByNameAsync(string name)
+        {
+            var spec = new StudentByNameSpecification(name);
             return await GetAsync(spec);
         }
 
         public async Task<IEnumerable<Student>> GetStudentByGroupAsync(int groupId)
         {
-            return await _dbContext.Students
-                .Where(x => x.GroupId == groupId)
-                .ToListAsync();
+            var spec = new StudentByGroupSpecification(groupId);
+            return await GetAsync(spec);
         }
     }
 }

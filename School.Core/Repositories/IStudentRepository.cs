@@ -8,7 +8,8 @@ namespace School.Core.Repositories
     public interface IStudentRepository : IRepository<Student>
     {
         Task<IEnumerable<Student>> GetStudentListAsync();
-        Task<IEnumerable<Student>> GetStudentByLastNameAsync(string lastName);
+        Task<Student> GetStudentByIdAsync(int studentId);
+        Task<IEnumerable<Student>> GetStudentByNameAsync(string name);
         Task<IEnumerable<Student>> GetStudentByGroupAsync(int groupId);
     }
 }

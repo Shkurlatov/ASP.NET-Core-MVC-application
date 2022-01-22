@@ -8,7 +8,7 @@ namespace School.Application.Interfaces
     {
         Task<IEnumerable<StudentModel>> GetStudentList();
         Task<StudentModel> GetStudentById(int studentId);
-        Task<IEnumerable<StudentModel>> GetStudentByLastName(string lastName);
+        Task<IEnumerable<StudentModel>> GetStudentByName(string name);
         Task<IEnumerable<StudentModel>> GetStudentByGroup(int groupId);
         Task<StudentModel> Create(StudentModel studentModel);
         Task Update(StudentModel studentModel);

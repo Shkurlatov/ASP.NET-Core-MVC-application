@@ -27,9 +27,9 @@ namespace School.Infrastructure.Data
 
             builder.HasKey(ci => ci.Id);
 
-            builder.Property(ci => ci.Id)
-               .ForSqlServerUseSequenceHiLo("school_type_hilo")
-               .IsRequired();
+            //builder.Property(ci => ci.Id)
+            //   .ForSqlServerUseSequenceHiLo("school_type_hilo")
+            //   .IsRequired();
 
             builder.Property(cb => cb.GroupId)
                 .IsRequired();
@@ -49,9 +49,9 @@ namespace School.Infrastructure.Data
 
             builder.HasKey(ci => ci.Id);
 
-            builder.Property(ci => ci.Id)
-               .ForSqlServerUseSequenceHiLo("school_type_hilo")
-               .IsRequired();
+            //builder.Property(ci => ci.Id)
+            //   .ForSqlServerUseSequenceHiLo("school_type_hilo")
+            //   .IsRequired();
 
             builder.Property(cb => cb.CourseId)
                 .IsRequired();
@@ -67,9 +67,9 @@ namespace School.Infrastructure.Data
 
             builder.HasKey(ci => ci.Id);
 
-            builder.Property(ci => ci.Id)
-               .ForSqlServerUseSequenceHiLo("school_type_hilo")
-               .IsRequired();
+            //builder.Property(ci => ci.Id)
+            //   .ForSqlServerUseSequenceHiLo("school_type_hilo")
+            //   .IsRequired();
 
             builder.Property(cb => cb.Name)
                 .IsRequired()

@@ -16,30 +16,29 @@ namespace School.Infrastructure.Repository
         {
         }
 
-        public async Task<Group> GetGroupWithStudentsAsync(int groupId)
+        public async Task<Group> GetGroupByIdAsync(int groupId)
         {
-            var spec = new GroupWithStudentsSpecification(groupId);
+            var spec = new GroupByIdSpecification(groupId);
             var group = (await GetAsync(spec)).FirstOrDefault();
             return group;
         }
 
         public async Task<IEnumerable<Group>> GetGroupListAsync()
         {
-            var spec = new GroupWithCourseSpecification();
+            var spec = new GroupByNameSpecification();
             return await GetAsync(spec);
         }
 
         public async Task<IEnumerable<Group>> GetGroupByNameAsync(string name)
         {
-            var spec = new GroupWithCourseSpecification(name);
+            var spec = new GroupByNameSpecification(name);
             return await GetAsync(spec);
         }
 
         public async Task<IEnumerable<Group>> GetGroupByCourseAsync(int courseId)
         {
-            return await _dbContext.Groups
-                .Where(x => x.CourseId == courseId)
-                .ToListAsync();
+            var spec = new GroupByCourseSpecification(courseId);
+            return await GetAsync(spec);
         }
     }
 }

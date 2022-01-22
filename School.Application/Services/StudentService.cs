@@ -30,14 +30,14 @@ namespace School.Application.Services
 
         public async Task<StudentModel> GetStudentById(int studentId)
         {
-            var student = await _studentRepository.GetByIdAsync(studentId);
+            var student = await _studentRepository.GetStudentByIdAsync(studentId);
             var mapped = ObjectMapper.Mapper.Map<StudentModel>(student);
             return mapped;
         }
 
-        public async Task<IEnumerable<StudentModel>> GetStudentByLastName(string lastName)
+        public async Task<IEnumerable<StudentModel>> GetStudentByName(string name)
         {
-            var studentList = await _studentRepository.GetStudentByLastNameAsync(lastName);
+            var studentList = await _studentRepository.GetStudentByNameAsync(name);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }

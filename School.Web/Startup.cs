@@ -1,13 +1,24 @@
+using School.Application.Interfaces;
+using School.Application.Services;
+using School.Core.Interfaces;
+using School.Infrastructure.Logging;
+using School.Infrastructure.Data;
+using School.Infrastructure.Repository;
+using School.Web.HealthChecks;
+using School.Web.Interfaces;
+using School.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using School.Core.Repositories;
+using School.Core.Repositories.Base;
+using School.Core.Configuration;
+using School.Infrastructure.Repository.Base;
+using AutoMapper;
 
 namespace School.Web
 {
@@ -20,13 +31,13 @@ namespace School.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-        }
+            ConfigureSchoolServices(services);            
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            services.AddRazorPages();
+        }        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -36,21 +47,53 @@ namespace School.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
             });
+        }
+
+        private void ConfigureSchoolServices(IServiceCollection services)
+        {
+            services.Configure<SchoolSettings>(Configuration);
+
+            ConfigureDatabases(services);
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<ICourseService, CourseService>();
+
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IIndexPageService, IndexPageService>();
+            services.AddScoped<IStudentPageService, StudentPageService>();
+            services.AddScoped<IGroupPageService, GroupPageService>();
+            services.AddScoped<ICoursePageService, CoursePageService>();
+
+            services.AddHttpContextAccessor();
+            services.AddHealthChecks()
+                .AddCheck<IndexPageHealthCheck>("home_page_health_check");
+        }
+
+        public void ConfigureDatabases(IServiceCollection services)
+        {
+            //services.AddDbContext<SchoolContext>(c =>
+            //    c.UseInMemoryDatabase("DefaultConnection"));
+
+            services.AddDbContext<SchoolContext>(c =>
+                c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
     }
 }

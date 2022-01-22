@@ -1,0 +1,45 @@
+﻿@page
+@model School.Web.Pages.Course.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Course List</h2>
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <span class="input-group-btn">
+                <button class="btn btn-default">
+                    Search
+                </button>
+            </span>
+        </div>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Course Name</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model.CourseList)
+        {
+        <tr>
+            <td>
+                <a class="btn"
+                   asp-page="/Group/Index"
+                   asp-route-courseId="@course.Id">
+                    @course.Name
+                </a>
+            </td>
+            <td>@course.Description</td>
+        </tr>
+        }
+    </tbody>
+</table>

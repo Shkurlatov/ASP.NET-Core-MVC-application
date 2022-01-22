@@ -21,6 +21,13 @@ namespace School.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        public async Task<GroupModel> GetGroupWithStudents(int groupId)
+        {
+            var group = await _groupRepository.GetGroupByIdAsync(groupId);
+            var mapped = ObjectMapper.Mapper.Map<GroupModel>(group);
+            return mapped;
+        }
+
         public async Task<IEnumerable<GroupModel>> GetGroupList()
         {
             var groupList = await _groupRepository.GetGroupListAsync();
@@ -30,7 +37,7 @@ namespace School.Application.Services
 
         public async Task<GroupModel> GetGroupById(int groupId)
         {
-            var group = await _groupRepository.GetByIdAsync(groupId);
+            var group = await _groupRepository.GetGroupByIdAsync(groupId);
             var mapped = ObjectMapper.Mapper.Map<GroupModel>(group);
             return mapped;
         }
