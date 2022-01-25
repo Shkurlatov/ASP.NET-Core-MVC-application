@@ -3,25 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C55FCBD7-43A2-4D9D-863C-DC9A045E4783}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A6476AA9-0F24-49DA-8D45-5E4C9E8B0A7D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A6476AA9-0F24-49DA-8D45-5E4C9E8B0A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Application", "School.Application\School.Application.csproj", "{450AB43A-2EFA-4973-B5A7-60876ADC5B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Application", "School.Application\School.Application.csproj", "{450AB43A-2EFA-4973-B5A7-60876ADC5B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Core", "School.Core\School.Core.csproj", "{44982EEA-2CDF-480F-B181-968AC0BF956D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Core", "School.Core\School.Core.csproj", "{44982EEA-2CDF-480F-B181-968AC0BF956D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Infrastructure", "School.Infrastructure\School.Infrastructure.csproj", "{D92307BF-CCF7-4ED1-AA64-BB090886D4A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Infrastructure", "School.Infrastructure\School.Infrastructure.csproj", "{D92307BF-CCF7-4ED1-AA64-BB090886D4A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Web", "School.Web\School.Web.csproj", "{1A6E78D2-9E5F-41F2-B4E8-5D680C60BAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Web", "School.Web\School.Web.csproj", "{1A6E78D2-9E5F-41F2-B4E8-5D680C60BAFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Application.Tests", "School.Application.Tests\School.Application.Tests.csproj", "{E347C756-4B30-486B-8CC6-505C0EAD1AC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Application.Tests", "School.Application.Tests\School.Application.Tests.csproj", "{E347C756-4B30-486B-8CC6-505C0EAD1AC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Core.Tests", "School.Core.Tests\School.Core.Tests.csproj", "{EF64EFE8-F4AB-4ECE-A9F1-EDC76E705F72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Core.Tests", "School.Core.Tests\School.Core.Tests.csproj", "{EF64EFE8-F4AB-4ECE-A9F1-EDC76E705F72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Infrastructure.Tests", "School.Infrastructure.Tests\School.Infrastructure.Tests.csproj", "{F64B35A3-108F-48E8-BF20-3A69C51F5993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Infrastructure.Tests", "School.Infrastructure.Tests\School.Infrastructure.Tests.csproj", "{F64B35A3-108F-48E8-BF20-3A69C51F5993}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Web.Tests", "School.Web.Tests\School.Web.Tests.csproj", "{214407F9-B92F-4EE9-B301-20CE900A1E10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Web.Tests", "School.Web.Tests\School.Web.Tests.csproj", "{214407F9-B92F-4EE9-B301-20CE900A1E10}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B7D03A11-FB00-48E8-A234-AC010EAB563B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{03253029-20DF-4C31-A967-28CEAC4B62ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{34E12326-40F9-498F-B3EB-E85DE90B8897}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +70,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{450AB43A-2EFA-4973-B5A7-60876ADC5B12} = {C55FCBD7-43A2-4D9D-863C-DC9A045E4783}
-		{44982EEA-2CDF-480F-B181-968AC0BF956D} = {C55FCBD7-43A2-4D9D-863C-DC9A045E4783}
-		{D92307BF-CCF7-4ED1-AA64-BB090886D4A2} = {C55FCBD7-43A2-4D9D-863C-DC9A045E4783}
-		{1A6E78D2-9E5F-41F2-B4E8-5D680C60BAFC} = {C55FCBD7-43A2-4D9D-863C-DC9A045E4783}
+		{450AB43A-2EFA-4973-B5A7-60876ADC5B12} = {34E12326-40F9-498F-B3EB-E85DE90B8897}
+		{44982EEA-2CDF-480F-B181-968AC0BF956D} = {34E12326-40F9-498F-B3EB-E85DE90B8897}
+		{D92307BF-CCF7-4ED1-AA64-BB090886D4A2} = {03253029-20DF-4C31-A967-28CEAC4B62ED}
+		{1A6E78D2-9E5F-41F2-B4E8-5D680C60BAFC} = {B7D03A11-FB00-48E8-A234-AC010EAB563B}
 		{E347C756-4B30-486B-8CC6-505C0EAD1AC4} = {A6476AA9-0F24-49DA-8D45-5E4C9E8B0A7D}
 		{EF64EFE8-F4AB-4ECE-A9F1-EDC76E705F72} = {A6476AA9-0F24-49DA-8D45-5E4C9E8B0A7D}
 		{F64B35A3-108F-48E8-BF20-3A69C51F5993} = {A6476AA9-0F24-49DA-8D45-5E4C9E8B0A7D}
