@@ -1,6 +1,6 @@
-using School.Application.Interfaces;
-using School.Application.Services;
-using School.Core.Interfaces;
+using School.Service.Interfaces;
+using School.Service.Services;
+using School.Domain.Interfaces;
 using School.Infrastructure.Logging;
 using School.Infrastructure.Data;
 using School.Infrastructure.Repository;
@@ -14,9 +14,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using School.Core.Repositories;
-using School.Core.Repositories.Base;
-using School.Core.Configuration;
+using School.Domain.Repositories;
+using School.Domain.Repositories.Base;
+using School.Domain.Configuration;
 using School.Infrastructure.Repository.Base;
 using AutoMapper;
 

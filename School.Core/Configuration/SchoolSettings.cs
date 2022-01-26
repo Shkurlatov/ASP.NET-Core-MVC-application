@@ -1,5 +1,5 @@
 ﻿
-namespace School.Core.Configuration
+namespace School.Domain.Configuration
 {
     public class SchoolSettings
     {

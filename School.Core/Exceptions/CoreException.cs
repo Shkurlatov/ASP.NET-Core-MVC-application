@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace School.Core.Exceptions
+namespace School.Domain.Exceptions
 {
     public class CoreException : Exception
     {

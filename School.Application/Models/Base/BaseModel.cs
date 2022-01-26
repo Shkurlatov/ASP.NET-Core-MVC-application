@@ -1,5 +1,5 @@
 ﻿
-namespace School.Application.Models.Base
+namespace School.Service.Models.Base
 {
     public class BaseModel
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace School.Core.Interfaces
+namespace School.Domain.Interfaces
 {
     public interface IAppLogger<T>
     {

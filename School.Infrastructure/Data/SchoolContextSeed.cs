@@ -1,4 +1,4 @@
-﻿using School.Core.Entities;
+﻿using School.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

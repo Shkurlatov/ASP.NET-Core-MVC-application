@@ -1,7 +1,7 @@
-﻿using School.Core.Entities;
-using School.Core.Specifications.Base;
+﻿using School.Domain.Entities;
+using School.Domain.Specifications.Base;
 
-namespace School.Core.Specifications
+namespace School.Domain.Specifications
 {
     public sealed class GroupByCourseSpecification : BaseSpecification<Group>
     {

@@ -1,12 +1,12 @@
-﻿using School.Core.Entities.Base;
-using School.Core.Specifications.Base;
+﻿using School.Domain.Entities.Base;
+using School.Domain.Specifications.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace School.Core.Repositories.Base
+namespace School.Domain.Repositories.Base
 {
     public interface IRepository<T> where T : Entity
     {

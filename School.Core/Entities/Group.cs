@@ -1,7 +1,7 @@
-﻿using School.Core.Entities.Base;
+﻿using School.Domain.Entities.Base;
 using System.Collections.Generic;
 
-namespace School.Core.Entities
+namespace School.Domain.Entities
 {
     public class Group : Entity
     {

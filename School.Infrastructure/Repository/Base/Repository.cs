@@ -1,6 +1,6 @@
-﻿using School.Core.Entities.Base;
-using School.Core.Repositories.Base;
-using School.Core.Specifications.Base;
+﻿using School.Domain.Entities.Base;
+using School.Domain.Repositories.Base;
+using School.Domain.Specifications.Base;
 using School.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;

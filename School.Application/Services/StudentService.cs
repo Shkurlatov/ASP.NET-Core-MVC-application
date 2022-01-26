@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using School.Core.Entities;
-using School.Core.Interfaces;
-using School.Core.Repositories;
-using School.Application.Models;
-using School.Application.Mapper;
-using School.Application.Interfaces;
+using School.Domain.Entities;
+using School.Domain.Interfaces;
+using School.Domain.Repositories;
+using School.Service.Models;
+using School.Service.Mapper;
+using School.Service.Interfaces;
 
-namespace School.Application.Services
+namespace School.Service.Services
 {
     public class StudentService : IStudentService
     {

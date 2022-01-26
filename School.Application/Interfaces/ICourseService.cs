@@ -1,8 +1,8 @@
-﻿using School.Application.Models;
+﻿using School.Service.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace School.Application.Interfaces
+namespace School.Service.Interfaces
 {
     public interface ICourseService
     {

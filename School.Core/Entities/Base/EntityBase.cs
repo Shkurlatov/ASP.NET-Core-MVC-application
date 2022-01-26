@@ -1,5 +1,5 @@
 ﻿
-namespace School.Core.Entities.Base
+namespace School.Domain.Entities.Base
 {
     public abstract class EntityBase<TId> : IEntityBase<TId>
     {

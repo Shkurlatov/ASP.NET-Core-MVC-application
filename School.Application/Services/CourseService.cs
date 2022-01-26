@@ -1,13 +1,13 @@
-﻿using School.Application.Mapper;
-using School.Application.Interfaces;
-using School.Core.Interfaces;
+﻿using School.Service.Mapper;
+using School.Service.Interfaces;
+using School.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using School.Core.Repositories;
-using School.Application.Models;
+using School.Domain.Repositories;
+using School.Service.Models;
 
-namespace School.Application.Services
+namespace School.Service.Services
 {
     public class CourseService : ICourseService
     {

@@ -1,5 +1,5 @@
-﻿using School.Core.Entities.Base;
-using School.Core.Specifications.Base;
+﻿using School.Domain.Entities.Base;
+using School.Domain.Specifications.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 

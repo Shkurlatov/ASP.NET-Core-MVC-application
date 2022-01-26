@@ -1,5 +1,5 @@
-﻿using School.Application.Interfaces;
-using School.Application.Models;
+﻿using School.Service.Interfaces;
+using School.Service.Models;
 using School.Web.Interfaces;
 using School.Web.ViewModels;
 using AutoMapper;

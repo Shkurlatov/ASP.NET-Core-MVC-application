@@ -1,9 +1,9 @@
-﻿using School.Application.Models;
-using School.Core.Entities;
+﻿using School.Service.Models;
+using School.Domain.Entities;
 using AutoMapper;
 using System;
 
-namespace School.Application.Mapper
+namespace School.Service.Mapper
 {
     public static class ObjectMapper
     {

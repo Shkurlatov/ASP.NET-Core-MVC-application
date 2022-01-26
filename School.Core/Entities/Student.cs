@@ -1,6 +1,6 @@
-﻿using School.Core.Entities.Base;
+﻿using School.Domain.Entities.Base;
 
-namespace School.Core.Entities
+namespace School.Domain.Entities
 {
     public class Student : Entity
     {

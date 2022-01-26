@@ -1,9 +1,9 @@
-﻿using School.Core.Entities;
-using School.Core.Repositories.Base;
+﻿using School.Domain.Entities;
+using School.Domain.Repositories.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace School.Core.Repositories
+namespace School.Domain.Repositories
 {
     public interface ICourseRepository : IRepository<Course>
     {

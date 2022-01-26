@@ -1,4 +1,4 @@
-﻿using School.Core.Interfaces;
+﻿using School.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace School.Infrastructure.Logging

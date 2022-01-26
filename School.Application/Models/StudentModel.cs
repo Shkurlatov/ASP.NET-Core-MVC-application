@@ -1,6 +1,6 @@
-﻿using School.Application.Models.Base;
+﻿using School.Service.Models.Base;
 
-namespace School.Application.Models
+namespace School.Service.Models
 {
     public class StudentModel : BaseModel
     {

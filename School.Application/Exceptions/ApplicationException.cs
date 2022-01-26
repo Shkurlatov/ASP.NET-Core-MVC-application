@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace School.Application.Exceptions
+namespace School.Service.Exceptions
 {
     public class ApplicationException : Exception
     {

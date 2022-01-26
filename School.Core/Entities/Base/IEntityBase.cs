@@ -1,5 +1,5 @@
 ﻿
-namespace School.Core.Entities.Base
+namespace School.Domain.Entities.Base
 {
     public interface IEntityBase<TId>
     {

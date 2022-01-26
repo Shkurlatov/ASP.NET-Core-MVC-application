@@ -1,4 +1,4 @@
-﻿using School.Application.Models;
+﻿using School.Service.Models;
 using School.Web.ViewModels;
 using AutoMapper;
 

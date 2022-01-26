@@ -1,4 +1,4 @@
-﻿using School.Core.Entities;
+﻿using School.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
