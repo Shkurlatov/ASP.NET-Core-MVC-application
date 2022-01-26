@@ -28,7 +28,7 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            Group = await _groupPageService.GetGroupById(groupId.Value);
+            //Group = await _groupPageService.GetGroupById(groupId.Value);
             if (Group == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            await _groupPageService.DeleteGroup(Group);
+            //await _groupPageService.DeleteGroup(Group);
             return RedirectToPage("./Index");
         }
     }

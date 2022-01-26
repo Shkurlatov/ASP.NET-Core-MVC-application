@@ -25,7 +25,7 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            Student = await _studentPageService.GetStudentById(studentId.Value);
+            //Student = await _studentPageService.GetStudentById(studentId.Value);
             if (Student == null)
             {
                 return NotFound();

@@ -26,7 +26,7 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            Student = await _studentPageService.GetStudentById(studentId.Value);
+            //Student = await _studentPageService.GetStudentById(studentId.Value);
             if (Student == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            await _studentPageService.DeleteStudent(Student);          
+            //await _studentPageService.DeleteStudent(Student);          
             return RedirectToPage("./Index");
         }
     }

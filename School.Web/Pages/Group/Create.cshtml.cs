@@ -19,8 +19,8 @@ namespace School.Web.Pages.Group
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var courses = await _groupPageService.GetCourses();
-            ViewData["CourseId"] = new SelectList(courses, "Id", "Name");
+            //var courses = await _groupPageService.GetCourses();
+            //ViewData["CourseId"] = new SelectList(courses, "Id", "Name");
             return Page();
         }
 
@@ -34,7 +34,7 @@ namespace School.Web.Pages.Group
                 return Page();
             }
 
-            Group = await _groupPageService.CreateGroup(Group);
+            //Group = await _groupPageService.CreateGroup(Group);
             return RedirectToPage("./Index");
         }
     }

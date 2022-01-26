@@ -28,13 +28,13 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            Student = await _studentPageService.GetStudentById(studentId.Value);
+            //Student = await _studentPageService.GetStudentById(studentId.Value);
             if (Student == null)
             {
                 return NotFound();
             }
             
-            ViewData["GroupId"] = new SelectList(await _studentPageService.GetGroups(), "Id", "Name");
+            //ViewData["GroupId"] = new SelectList(await _studentPageService.GetGroups(), "Id", "Name");
             return Page();
         }
 
@@ -45,28 +45,28 @@ namespace School.Web.Pages.Student
                 return Page();
             }
             
-            try
-            {
-                await _studentPageService.UpdateStudent(Student);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(Student.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _studentPageService.UpdateStudent(Student);
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!StudentExists(Student.Id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
             return RedirectToPage("./Index");
         }
 
-        private bool StudentExists(int id)
-        {
-            var student = _studentPageService.GetStudentById(id);
-            return student != null;            
-        }
+        //private bool StudentExists(int id)
+        //{
+        //    var student = _studentPageService.GetStudentById(id);
+        //    return student != null;            
+        //}
     }
 }

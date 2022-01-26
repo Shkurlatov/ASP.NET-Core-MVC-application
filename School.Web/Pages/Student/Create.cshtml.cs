@@ -19,8 +19,8 @@ namespace School.Web.Pages.Student
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var groups = await _studentPageService.GetGroups();
-            ViewData["GroupId"] = new SelectList(groups, "Id", "Name");
+            //var groups = await _studentPageService.GetGroups();
+            //ViewData["GroupId"] = new SelectList(groups, "Id", "Name");
             return Page();
         }
 
@@ -34,7 +34,7 @@ namespace School.Web.Pages.Student
                 return Page();
             }
 
-            Student = await _studentPageService.CreateStudent(Student);
+            //Student = await _studentPageService.CreateStudent(Student);
             return RedirectToPage("./Index");
         }
     }

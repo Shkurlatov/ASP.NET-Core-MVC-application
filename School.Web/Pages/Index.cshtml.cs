@@ -17,14 +17,13 @@ namespace School.Web.Pages
             _indexPageService = indexPageService ?? throw new ArgumentNullException(nameof(indexPageService));
         }
 
-        public IEnumerable<StudentViewModel> StudentList { get; set; } = new List<StudentViewModel>();
-        public GroupViewModel GroupModel { get; set; } = new GroupViewModel();
-        public CourseViewModel CourseModel { get; set; } = new CourseViewModel();
+        //public IEnumerable<StudentViewModel> StudentList { get; set; } = new List<StudentViewModel>();
+        //public GroupViewModel GroupModel { get; set; } = new GroupViewModel();
+        //public CourseViewModel CourseModel { get; set; } = new CourseViewModel();
 
         public async Task<IActionResult> OnGet()
         {
-            StudentList = await _indexPageService.GetStudents();
-
+            //StudentList = await _indexPageService.GetStudents();
             //GroupModel = await _indexPageService.GetGroupWithStudents(1);
             //CourseModel = await _indexPageService.GetCourseWithGroups(1);
 

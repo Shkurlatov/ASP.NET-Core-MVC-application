@@ -25,7 +25,7 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            Group = await _groupPageService.GetGroupById(groupId.Value);
+            //Group = await _groupPageService.GetGroupById(groupId.Value);
             if (Group == null)
             {
                 return NotFound();

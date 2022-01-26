@@ -25,13 +25,13 @@ namespace School.Web.Pages.Group
 
         public async Task<IActionResult> OnGetAsync(int groupId, int courseId)
         {
-            if (courseId != 0)
-            {
-                GroupList = await _groupPageService.GetGroupByCourse(courseId);
-                return Page();
-            }
+            //if (courseId != 0)
+            //{
+            //    GroupList = await _groupPageService.GetGroupByCourse(courseId);
+            //    return Page();
+            //}
 
-            GroupList = await _groupPageService.GetGroups(SearchTerm, groupId);
+            //GroupList = await _groupPageService.GetGroups(SearchTerm, groupId);
             return Page();
         }
     }

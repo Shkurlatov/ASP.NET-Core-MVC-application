@@ -24,13 +24,13 @@ namespace School.Web.Pages.Student
 
         public async Task<IActionResult> OnGetAsync(int groupId)
         {
-            if (groupId != 0)
-            {
-                StudentList = await _studentPageService.GetStudentByGroup(groupId);
-                return Page();
-            }
+            //if (groupId != 0)
+            //{
+            //    StudentList = await _studentPageService.GetStudentByGroup(groupId);
+            //    return Page();
+            //}
 
-            StudentList = await _studentPageService.GetStudents(SearchTerm);
+            //StudentList = await _studentPageService.GetStudents(SearchTerm);
             return Page();
         }
     }

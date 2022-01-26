@@ -8,9 +8,9 @@ namespace School.Web.Mapper
     {
         public SchoolProfile()
         {
-            CreateMap<StudentModel, StudentViewModel>().ReverseMap();
-            CreateMap<GroupModel, GroupViewModel>().ReverseMap();
-            CreateMap<CourseModel, CourseViewModel>().ReverseMap();
+            //CreateMap<StudentModel, StudentViewModel>().ReverseMap();
+            //CreateMap<GroupModel, GroupViewModel>().ReverseMap();
+            //CreateMap<CourseModel, CourseViewModel>().ReverseMap();
         }
     }
 }

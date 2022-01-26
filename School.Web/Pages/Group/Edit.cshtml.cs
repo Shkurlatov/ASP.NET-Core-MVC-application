@@ -28,13 +28,13 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            Group = await _groupPageService.GetGroupById(groupId.Value);
+            //Group = await _groupPageService.GetGroupById(groupId.Value);
             if (Group == null)
             {
                 return NotFound();
             }
             
-            ViewData["CourseId"] = new SelectList(await _groupPageService.GetCourses(), "Id", "Name");
+            //ViewData["CourseId"] = new SelectList(await _groupPageService.GetCourses(), "Id", "Name");
             return Page();
         }
 
@@ -45,21 +45,21 @@ namespace School.Web.Pages.Group
                 return Page();
             }
             
-            try
-            {
-                await _groupPageService.UpdateGroup(Group);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupExists(Group.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _groupPageService.UpdateGroup(Group);
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!GroupExists(Group.Id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
             return RedirectToPage("./Index");
         }
 

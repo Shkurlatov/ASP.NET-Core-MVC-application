@@ -24,7 +24,7 @@ namespace School.Web.Pages.Course
 
         public async Task<IActionResult> OnGetAsync(int courseId)
         {
-            CourseList = await _coursePageService.GetCourses(SearchTerm, courseId);
+            //CourseList = await _coursePageService.GetCourses(SearchTerm, courseId);
             return Page();
         }
     }
