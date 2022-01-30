@@ -1,7 +1,6 @@
-﻿using School.Service.Models.Base;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace School.Service.Models
+namespace School.Application.Models
 {
     public class GroupModel : BaseModel
     {

@@ -1,9 +1,9 @@
-﻿using School.Service.Models;
+﻿using School.Application.Models;
 using School.Domain.Entities;
 using AutoMapper;
 using System;
 
-namespace School.Service.Mapper
+namespace School.Application.Mapper
 {
     public static class ObjectMapper
     {
@@ -24,12 +24,8 @@ namespace School.Service.Mapper
     {
         public SchoolDtoMapper()
         {
-            CreateMap<Student, StudentModel>()
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName)).ReverseMap();
-
-            CreateMap<Group, GroupModel>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name)).ReverseMap();
-
+            CreateMap<Student, StudentModel>().ReverseMap();
+            CreateMap<Group, GroupModel>().ReverseMap();
             CreateMap<Course, CourseModel>().ReverseMap();
         }
     }

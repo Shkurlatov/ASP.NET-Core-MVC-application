@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\School.Application\School.Service.csproj" />
-    <ProjectReference Include="..\School.Infrastructure\School.Infrastructure.csproj" />
+    <ProjectReference Include="..\School.Application\School.Application.csproj" />
   </ItemGroup>
 
 </Project>

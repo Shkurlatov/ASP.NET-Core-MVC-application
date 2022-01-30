@@ -1,30 +1,43 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using School.Web.Interfaces;
-using School.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Course
 {
     public class IndexModel : PageModel
     {
-        private readonly ICoursePageService _coursePageService;
+        private readonly IService<CourseModel> _service;
 
-        public IndexModel(ICoursePageService coursePageService)
+        public IndexModel(IService<CourseModel> service)
         {
-            _coursePageService = coursePageService ?? throw new ArgumentNullException(nameof(coursePageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public IEnumerable<CourseViewModel> CourseList { get; set; } = new List<CourseViewModel>();
+        public IEnumerable<CourseModel> CourseList { get; set; } = new List<CourseModel>();
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int courseId)
         {
-            //CourseList = await _coursePageService.GetCourses(SearchTerm, courseId);
+            if (courseId != 0)
+            {
+                CourseList = new List<CourseModel> { await _service.GetById(courseId) };
+                return Page();
+            }
+
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                CourseList = await _service.GetAll();
+                return Page();
+            }
+
+            CourseList = await _service.GetBySearch(SearchTerm);
             return Page();
         }
     }

@@ -2,22 +2,22 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using School.Web.Interfaces;
-using School.Web.ViewModels;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Student
 {
     public class DeleteModel : PageModel
     {
-        private readonly IStudentPageService _studentPageService;
+        private readonly IService<StudentModel> _service;
 
-        public DeleteModel(IStudentPageService studentPageService)
+        public DeleteModel(IService<StudentModel> service)
         {
-            _studentPageService = studentPageService ?? throw new ArgumentNullException(nameof(studentPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         [BindProperty]
-        public StudentViewModel Student { get; set; }
+        public StudentModel Student { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? studentId)
         {
@@ -26,7 +26,7 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            //Student = await _studentPageService.GetStudentById(studentId.Value);
+            Student = await _service.GetById(studentId.Value);
             if (Student == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            //await _studentPageService.DeleteStudent(Student);          
+            await _service.Delete(Student);
             return RedirectToPage("./Index");
         }
     }

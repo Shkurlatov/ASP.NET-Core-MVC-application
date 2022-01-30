@@ -3,35 +3,47 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using School.Web.ViewModels;
-using School.Web.Interfaces;
+using School.Application.Models;
+using School.Domain.Interfaces;
 using System.Linq;
 
 namespace School.Web.Pages.Group
 {
     public class IndexModel : PageModel
     {
-        private readonly IGroupPageService _groupPageService;
+        private readonly IService<GroupModel> _service;
 
-        public IndexModel(IGroupPageService groupPageService)
+        public IndexModel(IService<GroupModel> service)
         {
-            _groupPageService = groupPageService ?? throw new ArgumentNullException(nameof(groupPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public IEnumerable<GroupViewModel> GroupList { get; set; } = new List<GroupViewModel>();
+        public IEnumerable<GroupModel> GroupList { get; set; } = new List<GroupModel>();
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int groupId, int courseId)
+        public async Task<IActionResult> OnGetAsync(int groupId, int parentId)
         {
-            //if (courseId != 0)
-            //{
-            //    GroupList = await _groupPageService.GetGroupByCourse(courseId);
-            //    return Page();
-            //}
+            if (groupId != 0)
+            {
+                GroupList = new List<GroupModel> { await _service.GetById(groupId) };
+                return Page();
+            }
 
-            //GroupList = await _groupPageService.GetGroups(SearchTerm, groupId);
+            if (parentId != 0)
+            {
+                GroupList = await _service.GetByParent(parentId);
+                return Page();
+            }
+
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                GroupList = await _service.GetAll();
+                return Page();
+            }
+
+            GroupList = await _service.GetBySearch(SearchTerm);
             return Page();
         }
     }

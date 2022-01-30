@@ -1,55 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using School.Application.Mapper;
+using School.Application.Models;
 using School.Domain.Entities;
 using School.Domain.Interfaces;
-using School.Domain.Repositories;
-using School.Service.Models;
-using School.Service.Mapper;
-using School.Service.Interfaces;
 
-namespace School.Service.Services
+namespace School.Application.Services
 {
-    public class StudentService : IStudentService
+    public class StudentService : IService<StudentModel>
     {
         private readonly IStudentRepository _studentRepository;
-        private readonly IAppLogger<StudentService> _logger;
 
-        public StudentService(IStudentRepository studentRepository, IAppLogger<StudentService> logger)
+        public StudentService(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository ?? throw new ArgumentNullException(nameof(studentRepository));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<IEnumerable<StudentModel>> GetStudentList()
+        public async Task<IEnumerable<StudentModel>> GetAll()
         {
             var studentList = await _studentRepository.GetStudentListAsync();
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }
 
-        public async Task<StudentModel> GetStudentById(int studentId)
+        public async Task<StudentModel> GetById(int studentId)
         {
             var student = await _studentRepository.GetStudentByIdAsync(studentId);
             var mapped = ObjectMapper.Mapper.Map<StudentModel>(student);
             return mapped;
         }
 
-        public async Task<IEnumerable<StudentModel>> GetStudentByName(string name)
+        public async Task<IEnumerable<StudentModel>> GetBySearch(string searchTerm)
         {
-            var studentList = await _studentRepository.GetStudentByNameAsync(name);
+            var studentList = await _studentRepository.GetStudentByNameAsync(searchTerm);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }
 
-        public async Task<IEnumerable<StudentModel>> GetStudentByGroup(int groupId)
+        public async Task<IEnumerable<StudentModel>> GetByParent(int parentId)
         {
-            var studentList = await _studentRepository.GetStudentByGroupAsync(groupId);
+            var studentList = await _studentRepository.GetStudentByGroupAsync(parentId);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }
 
-        public async Task<StudentModel> Create(StudentModel studentModel)
+        public async Task Create(StudentModel studentModel)
         {
             await ValidateStudentIfExist(studentModel);
 
@@ -57,11 +53,7 @@ namespace School.Service.Services
             if (mappedEntity == null)
                 throw new ApplicationException($"Student could not be mapped.");
 
-            var newEntity = await _studentRepository.AddAsync(mappedEntity);
-            _logger.LogInformation($"Student successfully added - SchoolAppService");
-
-            var newMappedEntity = ObjectMapper.Mapper.Map<StudentModel>(newEntity);
-            return newMappedEntity;
+            await _studentRepository.AddAsync(mappedEntity);
         }
 
         public async Task Update(StudentModel studentModel)
@@ -75,18 +67,17 @@ namespace School.Service.Services
             ObjectMapper.Mapper.Map<StudentModel, Student>(studentModel, editStudent);
 
             await _studentRepository.UpdateAsync(editStudent);
-            _logger.LogInformation($"Student successfully updated - SchoolAppService");
         }
 
         public async Task Delete(StudentModel studentModel)
         {
             ValidateStudentIfNotExist(studentModel);
+
             var deletedStudent = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (deletedStudent == null)
                 throw new ApplicationException($"Student could not be loaded.");
 
             await _studentRepository.DeleteAsync(deletedStudent);
-            _logger.LogInformation($"Student successfully deleted - SchoolService");
         }
 
         private async Task ValidateStudentIfExist(StudentModel studentModel)

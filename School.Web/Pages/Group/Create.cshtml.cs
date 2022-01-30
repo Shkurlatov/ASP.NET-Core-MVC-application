@@ -3,29 +3,31 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using School.Web.Interfaces;
-using School.Web.ViewModels;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Group
 {
     public class CreateModel : PageModel
     {
-        private readonly IGroupPageService _groupPageService;
+        private readonly IService<GroupModel> _service;
+        private readonly IService<CourseModel> _parentService;
 
-        public CreateModel(IGroupPageService groupPageService)
+        public CreateModel(IService<GroupModel> service, IService<CourseModel> parentService)
         {
-            _groupPageService = groupPageService ?? throw new ArgumentNullException(nameof(groupPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _parentService = parentService ?? throw new ArgumentNullException(nameof(parentService));
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            //var courses = await _groupPageService.GetCourses();
-            //ViewData["CourseId"] = new SelectList(courses, "Id", "Name");
+            var courses = await _parentService.GetAll();
+            ViewData["CourseId"] = new SelectList(courses, "Id", "Name");
             return Page();
         }
 
         [BindProperty]
-        public GroupViewModel Group { get; set; }
+        public GroupModel Group { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -34,7 +36,7 @@ namespace School.Web.Pages.Group
                 return Page();
             }
 
-            //Group = await _groupPageService.CreateGroup(Group);
+            await _service.Create(Group);
             return RedirectToPage("./Index");
         }
     }

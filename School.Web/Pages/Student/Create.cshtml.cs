@@ -3,29 +3,31 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using School.Web.Interfaces;
-using School.Web.ViewModels;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Student
 {
     public class CreateModel : PageModel
     {
-        private readonly IStudentPageService _studentPageService;
+        private readonly IService<StudentModel> _service;
+        private readonly IService<GroupModel> _parentService;
 
-        public CreateModel(IStudentPageService studentPageService)
+        public CreateModel(IService<StudentModel> service, IService<GroupModel> parentService)
         {
-            _studentPageService = studentPageService ?? throw new ArgumentNullException(nameof(studentPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _parentService = parentService ?? throw new ArgumentNullException(nameof(parentService));
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            //var groups = await _studentPageService.GetGroups();
-            //ViewData["GroupId"] = new SelectList(groups, "Id", "Name");
+            var groups = await _parentService.GetAll();
+            ViewData["GroupId"] = new SelectList(groups, "Id", "Name");
             return Page();
         }
 
         [BindProperty]
-        public StudentViewModel Student { get; set; }
+        public StudentModel Student { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -34,7 +36,7 @@ namespace School.Web.Pages.Student
                 return Page();
             }
 
-            //Student = await _studentPageService.CreateStudent(Student);
+            await _service.Create(Student);
             return RedirectToPage("./Index");
         }
     }

@@ -1,23 +1,16 @@
-using School.Service.Interfaces;
-using School.Service.Services;
-using School.Domain.Interfaces;
-using School.Infrastructure.Logging;
-using School.Infrastructure.Data;
-using School.Infrastructure.Repository;
-using School.Web.HealthChecks;
-using School.Web.Interfaces;
-using School.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using School.Domain.Repositories;
-using School.Domain.Repositories.Base;
+using School.Application.Services;
+using School.Application.Models;
+using School.Application.Repositories;
 using School.Domain.Configuration;
-using School.Infrastructure.Repository.Base;
+using School.Domain.Entities;
+using School.Domain.Interfaces;
+using School.Infrastructure.Data;
 using AutoMapper;
 
 namespace School.Web
@@ -66,32 +59,23 @@ namespace School.Web
             services.Configure<SchoolSettings>(Configuration);
 
             ConfigureDatabases(services);
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
-            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<IGroupService, GroupService>();
-            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IService<CourseModel>, CourseService>();
+            services.AddScoped<IService<StudentModel>, StudentService>();
+            services.AddScoped<IService<GroupModel>, GroupService>();
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IIndexPageService, IndexPageService>();
-            services.AddScoped<IStudentPageService, StudentPageService>();
-            services.AddScoped<IGroupPageService, GroupPageService>();
-            services.AddScoped<ICoursePageService, CoursePageService>();
 
             services.AddHttpContextAccessor();
-            services.AddHealthChecks()
-                .AddCheck<IndexPageHealthCheck>("home_page_health_check");
         }
 
         public void ConfigureDatabases(IServiceCollection services)
         {
-            //services.AddDbContext<SchoolContext>(c =>
-            //    c.UseInMemoryDatabase("DefaultConnection"));
-
             services.AddDbContext<SchoolContext>(c =>
                 c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }

@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using School.Web.Interfaces;
-using School.Web.ViewModels;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Group
 {
     public class DeleteModel : PageModel
     {
-        private readonly IGroupPageService _groupPageService;
+        private readonly IService<GroupModel> _service;
 
-        public DeleteModel(IGroupPageService groupPageService, IStudentPageService studentPageService)
+        public DeleteModel(IService<GroupModel> service)
         {
-            _groupPageService = groupPageService ?? throw new ArgumentNullException(nameof(groupPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
-        public IEnumerable<StudentViewModel> StudentList { get; set; } = new List<StudentViewModel>();
 
         [BindProperty]
-        public GroupViewModel Group { get; set; }
+        public GroupModel Group { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? groupId)
         {
@@ -28,7 +26,7 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            //Group = await _groupPageService.GetGroupById(groupId.Value);
+            Group = await _service.GetById(groupId.Value);
             if (Group == null)
             {
                 return NotFound();
@@ -43,7 +41,7 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            //await _groupPageService.DeleteGroup(Group);
+            await _service.Delete(Group);
             return RedirectToPage("./Index");
         }
     }

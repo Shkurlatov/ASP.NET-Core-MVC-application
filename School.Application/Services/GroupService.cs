@@ -1,62 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using School.Domain.Entities;
+using School.Application.Mapper;
+using School.Application.Models;
 using School.Domain.Interfaces;
-using School.Domain.Repositories;
-using School.Service.Models;
-using School.Service.Mapper;
-using School.Service.Interfaces;
+using School.Domain.Entities;
 
-namespace School.Service.Services
+namespace School.Application.Services
 {
-    public class GroupService : IGroupService
+    public class GroupService : IService<GroupModel>
     {
         private readonly IGroupRepository _groupRepository;
-        private readonly IAppLogger<GroupService> _logger;
 
-        public GroupService(IGroupRepository groupRepository, IAppLogger<GroupService> logger)
+        public GroupService(IGroupRepository groupRepository)
         {
             _groupRepository = groupRepository ?? throw new ArgumentNullException(nameof(groupRepository));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<GroupModel> GetGroupWithStudents(int groupId)
-        {
-            var group = await _groupRepository.GetGroupByIdAsync(groupId);
-            var mapped = ObjectMapper.Mapper.Map<GroupModel>(group);
-            return mapped;
-        }
-
-        public async Task<IEnumerable<GroupModel>> GetGroupList()
+        public async Task<IEnumerable<GroupModel>> GetAll()
         {
             var groupList = await _groupRepository.GetGroupListAsync();
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<GroupModel>>(groupList);
             return mapped;
         }
 
-        public async Task<GroupModel> GetGroupById(int groupId)
+        public async Task<GroupModel> GetById(int groupId)
         {
             var group = await _groupRepository.GetGroupByIdAsync(groupId);
             var mapped = ObjectMapper.Mapper.Map<GroupModel>(group);
             return mapped;
         }
 
-        public async Task<IEnumerable<GroupModel>> GetGroupByName(string name)
+        public async Task<IEnumerable<GroupModel>> GetBySearch(string searchTerm)
         {
-            var groupList = await _groupRepository.GetGroupByNameAsync(name);
+            var groupList = await _groupRepository.GetGroupByNameAsync(searchTerm);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<GroupModel>>(groupList);
             return mapped;
         }
 
-        public async Task<IEnumerable<GroupModel>> GetGroupByCourse(int courseId)
+        public async Task<IEnumerable<GroupModel>> GetByParent(int parentId)
         {
-            var groupList = await _groupRepository.GetGroupByCourseAsync(courseId);
+            var groupList = await _groupRepository.GetGroupByCourseAsync(parentId);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<GroupModel>>(groupList);
             return mapped;
         }
 
-        public async Task<GroupModel> Create(GroupModel groupModel)
+        public async Task Create(GroupModel groupModel)
         {
             await ValidateGroupIfExist(groupModel);
 
@@ -64,11 +53,7 @@ namespace School.Service.Services
             if (mappedEntity == null)
                 throw new ApplicationException($"Group could not be mapped.");
 
-            var newEntity = await _groupRepository.AddAsync(mappedEntity);
-            _logger.LogInformation($"Group successfully added - SchoolAppService");
-
-            var newMappedEntity = ObjectMapper.Mapper.Map<GroupModel>(newEntity);
-            return newMappedEntity;
+            await _groupRepository.AddAsync(mappedEntity);
         }
 
         public async Task Update(GroupModel groupModel)
@@ -82,18 +67,17 @@ namespace School.Service.Services
             ObjectMapper.Mapper.Map<GroupModel, Group>(groupModel, editGroup);
 
             await _groupRepository.UpdateAsync(editGroup);
-            _logger.LogInformation($"Group successfully updated - SchoolAppService");
         }
 
         public async Task Delete(GroupModel groupModel)
         {
             ValidateGroupIfNotExist(groupModel);
+
             var deletedGroup = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (deletedGroup == null)
                 throw new ApplicationException($"Group could not be loaded.");
 
             await _groupRepository.DeleteAsync(deletedGroup);
-            _logger.LogInformation($"Group successfully deleted - SchoolAppService");
         }
 
         private async Task ValidateGroupIfExist(GroupModel groupModel)

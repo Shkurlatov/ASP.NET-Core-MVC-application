@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using School.Web.ViewModels;
-using School.Web.Interfaces;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Student
 {
     public class IndexModel : PageModel
     {
-        private readonly IStudentPageService _studentPageService;
+        private readonly IService<StudentModel> _service;
 
-        public IndexModel(IStudentPageService studentPageService)
+        public IndexModel(IService<StudentModel> service)
         {
-            _studentPageService = studentPageService ?? throw new ArgumentNullException(nameof(studentPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public IEnumerable<StudentViewModel> StudentList { get; set; } = new List<StudentViewModel>();
+        public IEnumerable<StudentModel> StudentList { get; set; } = new List<StudentModel>();
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int groupId)
+        public async Task<IActionResult> OnGetAsync(int parentId)
         {
-            //if (groupId != 0)
-            //{
-            //    StudentList = await _studentPageService.GetStudentByGroup(groupId);
-            //    return Page();
-            //}
+            if (parentId != 0)
+            {
+                StudentList = await _service.GetByParent(parentId);
+                return Page();
+            }
 
-            //StudentList = await _studentPageService.GetStudents(SearchTerm);
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                StudentList = await _service.GetAll();
+                return Page();
+            }
+
+            StudentList = await _service.GetBySearch(SearchTerm);
             return Page();
         }
     }

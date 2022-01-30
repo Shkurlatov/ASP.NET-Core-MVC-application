@@ -3,23 +3,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using School.Web.ViewModels;
-using School.Web.Interfaces;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Student
 {
     public class EditModel : PageModel
     {
-        private readonly IStudentPageService _studentPageService;
+        private readonly IService<StudentModel> _service;
+        private readonly IService<GroupModel> _parentService;
 
-        public EditModel(IStudentPageService studentPageService)
+        public EditModel(IService<StudentModel> service, IService<GroupModel> parentService)
         {
-            _studentPageService = studentPageService ?? throw new ArgumentNullException(nameof(studentPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _parentService = parentService ?? throw new ArgumentNullException(nameof(parentService));
         }
 
         [BindProperty]
-        public StudentViewModel Student { get; set; }
+        public StudentModel Student { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? studentId)
         {
@@ -28,13 +29,13 @@ namespace School.Web.Pages.Student
                 return NotFound();
             }
 
-            //Student = await _studentPageService.GetStudentById(studentId.Value);
+            Student = await _service.GetById(studentId.Value);
             if (Student == null)
             {
                 return NotFound();
             }
-            
-            //ViewData["GroupId"] = new SelectList(await _studentPageService.GetGroups(), "Id", "Name");
+
+            ViewData["GroupId"] = new SelectList(await _parentService.GetAll(), "Id", "Name");
             return Page();
         }
 
@@ -44,29 +45,9 @@ namespace School.Web.Pages.Student
             {
                 return Page();
             }
-            
-            //try
-            //{
-            //    await _studentPageService.UpdateStudent(Student);
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!StudentExists(Student.Id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+
+            await _service.Update(Student);
             return RedirectToPage("./Index");
         }
-
-        //private bool StudentExists(int id)
-        //{
-        //    var student = _studentPageService.GetStudentById(id);
-        //    return student != null;            
-        //}
     }
 }

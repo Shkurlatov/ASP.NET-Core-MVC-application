@@ -3,23 +3,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using School.Web.ViewModels;
-using School.Web.Interfaces;
+using School.Application.Models;
+using School.Domain.Interfaces;
 
 namespace School.Web.Pages.Group
 {
     public class EditModel : PageModel
     {
-        private readonly IGroupPageService _groupPageService;
+        private readonly IService<GroupModel> _service;
+        private readonly IService<CourseModel> _parentService;
 
-        public EditModel(IGroupPageService groupPageService)
+        public EditModel(IService<GroupModel> service, IService<CourseModel> parentService)
         {
-            _groupPageService = groupPageService ?? throw new ArgumentNullException(nameof(groupPageService));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _parentService = parentService ?? throw new ArgumentNullException(nameof(parentService));
         }
 
         [BindProperty]
-        public GroupViewModel Group { get; set; }
+        public GroupModel Group { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? groupId)
         {
@@ -28,13 +29,13 @@ namespace School.Web.Pages.Group
                 return NotFound();
             }
 
-            //Group = await _groupPageService.GetGroupById(groupId.Value);
+            Group = await _service.GetById(groupId.Value);
             if (Group == null)
             {
                 return NotFound();
             }
-            
-            //ViewData["CourseId"] = new SelectList(await _groupPageService.GetCourses(), "Id", "Name");
+
+            ViewData["CourseId"] = new SelectList(await _parentService.GetAll(), "Id", "Name");
             return Page();
         }
 
@@ -44,29 +45,9 @@ namespace School.Web.Pages.Group
             {
                 return Page();
             }
-            
-            //try
-            //{
-            //    await _groupPageService.UpdateGroup(Group);
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!GroupExists(Group.Id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-            return RedirectToPage("./Index");
-        }
 
-        private bool GroupExists(int id)
-        {
-            var group = _groupPageService.GetGroupById(id);
-            return group != null;            
+            await _service.Update(Group);
+            return RedirectToPage("./Index");
         }
     }
 }
