@@ -1,5 +1,5 @@
 ﻿using System;
-using School.Infrastructure.Data;
+using School.Persistence.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

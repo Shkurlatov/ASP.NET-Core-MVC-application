@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using School.Domain.Entities;
 using School.Domain.Interfaces;
-using School.Infrastructure.Data;
+using School.Persistence.Data;
 
 namespace School.Application.Repositories
 {

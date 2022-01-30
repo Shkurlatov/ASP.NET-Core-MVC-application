@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace School.Infrastructure.Data
+namespace School.Persistence.Data
 {
     public class SchoolContext : DbContext
     {

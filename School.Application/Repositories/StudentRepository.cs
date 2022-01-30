@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using School.Domain.Entities;
 using School.Domain.Interfaces;
 using School.Domain.Specifications;
-using School.Infrastructure.Data;
+using School.Persistence.Data;
 
 namespace School.Application.Repositories
 {
