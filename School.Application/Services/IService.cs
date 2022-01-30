@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace School.Domain.Interfaces
+namespace School.Application.Services
 {
     public interface IService<T>
     {

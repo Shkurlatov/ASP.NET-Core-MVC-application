@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using School.Application.Models;
-using School.Domain.Interfaces;
+using School.Application.Services;
 
 namespace School.Web.Pages.Student
 {

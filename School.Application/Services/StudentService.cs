@@ -3,44 +3,44 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
 using School.Application.Models;
+using School.Application.Repositories;
 using School.Domain.Entities;
-using School.Domain.Interfaces;
 
 namespace School.Application.Services
 {
     public class StudentService : IService<StudentModel>
     {
-        private readonly IStudentRepository _studentRepository;
+        private readonly Repository<Student> _studentRepository;
 
-        public StudentService(IStudentRepository studentRepository)
+        public StudentService(Repository<Student> studentRepository)
         {
             _studentRepository = studentRepository ?? throw new ArgumentNullException(nameof(studentRepository));
         }
 
         public async Task<IEnumerable<StudentModel>> GetAll()
         {
-            var studentList = await _studentRepository.GetStudentListAsync();
+            var studentList = await _studentRepository.GetAllAsync();
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }
 
         public async Task<StudentModel> GetById(int studentId)
         {
-            var student = await _studentRepository.GetStudentByIdAsync(studentId);
+            var student = await _studentRepository.GetByIdAsync(studentId);
             var mapped = ObjectMapper.Mapper.Map<StudentModel>(student);
             return mapped;
         }
 
         public async Task<IEnumerable<StudentModel>> GetBySearch(string searchTerm)
         {
-            var studentList = await _studentRepository.GetStudentByNameAsync(searchTerm);
+            var studentList = await _studentRepository.GetBySearchAsync(searchTerm);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }
 
         public async Task<IEnumerable<StudentModel>> GetByParent(int parentId)
         {
-            var studentList = await _studentRepository.GetStudentByGroupAsync(parentId);
+            var studentList = await _studentRepository.GetByParentAsync(parentId);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<StudentModel>>(studentList);
             return mapped;
         }

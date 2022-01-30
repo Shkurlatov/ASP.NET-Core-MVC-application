@@ -3,44 +3,44 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
 using School.Application.Models;
-using School.Domain.Interfaces;
+using School.Application.Repositories;
 using School.Domain.Entities;
 
 namespace School.Application.Services
 {
     public class GroupService : IService<GroupModel>
     {
-        private readonly IGroupRepository _groupRepository;
+        private readonly Repository<Group> _groupRepository;
 
-        public GroupService(IGroupRepository groupRepository)
+        public GroupService(Repository<Group> groupRepository)
         {
             _groupRepository = groupRepository ?? throw new ArgumentNullException(nameof(groupRepository));
         }
 
         public async Task<IEnumerable<GroupModel>> GetAll()
         {
-            var groupList = await _groupRepository.GetGroupListAsync();
+            var groupList = await _groupRepository.GetAllAsync();
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<GroupModel>>(groupList);
             return mapped;
         }
 
         public async Task<GroupModel> GetById(int groupId)
         {
-            var group = await _groupRepository.GetGroupByIdAsync(groupId);
+            var group = await _groupRepository.GetByIdAsync(groupId);
             var mapped = ObjectMapper.Mapper.Map<GroupModel>(group);
             return mapped;
         }
 
         public async Task<IEnumerable<GroupModel>> GetBySearch(string searchTerm)
         {
-            var groupList = await _groupRepository.GetGroupByNameAsync(searchTerm);
+            var groupList = await _groupRepository.GetBySearchAsync(searchTerm);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<GroupModel>>(groupList);
             return mapped;
         }
 
         public async Task<IEnumerable<GroupModel>> GetByParent(int parentId)
         {
-            var groupList = await _groupRepository.GetGroupByCourseAsync(parentId);
+            var groupList = await _groupRepository.GetByParentAsync(parentId);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<GroupModel>>(groupList);
             return mapped;
         }

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
 using School.Application.Models;
-using School.Domain.Interfaces;
+using School.Application.Repositories;
+using School.Domain.Entities;
 
 namespace School.Application.Services
 {
     public class CourseService : IService<CourseModel>
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly Repository<Course> _courseRepository;
 
-        public CourseService(ICourseRepository courseRepository)
+        public CourseService(Repository<Course> courseRepository)
         {
             _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
         }
@@ -25,14 +26,14 @@ namespace School.Application.Services
 
         public async Task<CourseModel> GetById(int courseId)
         {
-            var course = await _courseRepository.GetCourseByIdAsync(courseId);
+            var course = await _courseRepository.GetByIdAsync(courseId);
             var mapped = ObjectMapper.Mapper.Map<CourseModel>(course);
             return mapped;
         }
 
         public async Task<IEnumerable<CourseModel>> GetBySearch(string searchTerm)
         {
-            var courseList = await _courseRepository.GetCourseByNameAsync(searchTerm);
+            var courseList = await _courseRepository.GetBySearchAsync(searchTerm);
             var mapped = ObjectMapper.Mapper.Map<IEnumerable<CourseModel>>(courseList);
             return mapped;
         }

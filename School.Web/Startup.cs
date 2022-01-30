@@ -9,7 +9,6 @@ using School.Application.Models;
 using School.Application.Repositories;
 using School.Domain.Configuration;
 using School.Domain.Entities;
-using School.Domain.Interfaces;
 using School.Persistence.Data;
 using AutoMapper;
 
@@ -61,13 +60,13 @@ namespace School.Web
             ConfigureDatabases(services);
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IStudentRepository, StudentRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<Repository<Course>, CourseRepository>();
+            services.AddScoped<Repository<Group>, GroupRepository>();
+            services.AddScoped<Repository<Student>, StudentRepository>();
 
             services.AddScoped<IService<CourseModel>, CourseService>();
-            services.AddScoped<IService<StudentModel>, StudentService>();
             services.AddScoped<IService<GroupModel>, GroupService>();
+            services.AddScoped<IService<StudentModel>, StudentService>();
 
             services.AddAutoMapper(typeof(Startup));
 

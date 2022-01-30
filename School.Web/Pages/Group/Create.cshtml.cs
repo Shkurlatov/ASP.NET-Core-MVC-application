@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using School.Application.Models;
-using School.Domain.Interfaces;
+using School.Application.Services;
 
 namespace School.Web.Pages.Group
 {
