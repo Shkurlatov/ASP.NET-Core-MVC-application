@@ -58,7 +58,7 @@ namespace School.Application.Services
 
         public async Task Update(StudentModel studentModel)
         {
-            ValidateStudentIfNotExist(studentModel);
+            await ValidateStudentIfNotExist(studentModel);
 
             var editStudent = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (editStudent == null)
@@ -71,7 +71,7 @@ namespace School.Application.Services
 
         public async Task Delete(StudentModel studentModel)
         {
-            ValidateStudentIfNotExist(studentModel);
+            await ValidateStudentIfNotExist(studentModel);
 
             var deletedStudent = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (deletedStudent == null)
@@ -87,9 +87,9 @@ namespace School.Application.Services
                 throw new ApplicationException($"{studentModel.ToString()} with this id already exists");
         }
 
-        private void ValidateStudentIfNotExist(StudentModel studentModel)
+        private async Task ValidateStudentIfNotExist(StudentModel studentModel)
         {
-            var existingEntity = _studentRepository.GetByIdAsync(studentModel.Id);
+            var existingEntity = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (existingEntity == null)
                 throw new ApplicationException($"{studentModel.ToString()} with this id is not exists");
         }

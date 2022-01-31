@@ -58,7 +58,7 @@ namespace School.Application.Services
 
         public async Task Update(GroupModel groupModel)
         {
-            ValidateGroupIfNotExist(groupModel);
+            await ValidateGroupIfNotExist(groupModel);
 
             var editGroup = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (editGroup == null)
@@ -71,7 +71,7 @@ namespace School.Application.Services
 
         public async Task Delete(GroupModel groupModel)
         {
-            ValidateGroupIfNotExist(groupModel);
+            await ValidateGroupIfNotExist(groupModel);
 
             var deletedGroup = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (deletedGroup == null)
@@ -87,9 +87,9 @@ namespace School.Application.Services
                 throw new ApplicationException($"{groupModel.ToString()} with this id already exists");
         }
 
-        private void ValidateGroupIfNotExist(GroupModel groupModel)
+        private async Task ValidateGroupIfNotExist(GroupModel groupModel)
         {
-            var existingEntity = _groupRepository.GetByIdAsync(groupModel.Id);
+            var existingEntity = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (existingEntity == null)
                 throw new ApplicationException($"{groupModel.ToString()} with this id is not exists");
         }
