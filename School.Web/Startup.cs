@@ -31,6 +31,8 @@ namespace School.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            SeedDatabase(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,6 +75,13 @@ namespace School.Web
         {
             services.AddDbContext<SchoolContext>(c =>
                 c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        }
+
+        private void SeedDatabase(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            using var schoolContext = serviceScope.ServiceProvider.GetService<SchoolContext>();
+            SchoolContextSeed.SeedAsync(schoolContext).Wait();
         }
     }
 }

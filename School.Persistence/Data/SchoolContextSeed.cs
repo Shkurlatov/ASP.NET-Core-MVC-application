@@ -1,5 +1,4 @@
 ﻿using School.Domain.Entities;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ namespace School.Persistence.Data
 {
     public class SchoolContextSeed
     {
-        public static async Task SeedAsync(SchoolContext schoolContext, ILoggerFactory loggerFactory, int? retry = 0)
+        public static async Task SeedAsync(SchoolContext schoolContext, int? retry = 0)
         {
             int retryForAvailability = retry.Value;
 
@@ -31,14 +30,12 @@ namespace School.Persistence.Data
                 schoolContext.Students.AddRange(GetPreconfiguredStudents(schoolContext.Groups));
                 await schoolContext.SaveChangesAsync();
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 if (retryForAvailability < 10)
                 {
                     retryForAvailability++;
-                    var log = loggerFactory.CreateLogger<SchoolContextSeed>();
-                    log.LogError(exception.Message);
-                    await SeedAsync(schoolContext, loggerFactory, retryForAvailability);
+                    await SeedAsync(schoolContext, retryForAvailability);
                 }
                 throw;
             }
