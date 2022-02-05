@@ -1,0 +1,69 @@
+﻿@model IEnumerable<School.Application.Models.GroupModel>
+
+@{
+    ViewData["Title"] = "Groups";
+}
+
+<h2>Groups</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="searchTerm" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Group Name</th>
+            <th scope="col">Course</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn"
+                       asp-controller="Students" asp-action="Index"
+                       asp-route-parentId="@group.Id">
+                        @group.Name
+                    </a>
+                </td>
+                <td>
+                    <a class="btn"
+                       asp-controller="Courses" asp-action="Index"
+                       asp-route-courseId="@group.CourseId">
+                        @Html.DisplayFor(modelItem => group.Course.Name)
+                    </a>
+                </td>
+                <td>
+                    <a class="btn"
+                       asp-action="Details"
+                       asp-route-groupId="@group.Id">
+                        Details
+                    </a>
+                    <a class="btn"
+                       asp-action="Edit"
+                       asp-route-groupId="@group.Id">
+                        Edit
+                    </a>
+                    <a class="btn"
+                       asp-action="Delete"
+                       asp-route-groupId="@group.Id">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

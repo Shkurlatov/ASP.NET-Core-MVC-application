@@ -58,8 +58,6 @@ namespace School.Application.Services
 
         public async Task Update(StudentModel studentModel)
         {
-            await ValidateStudentIfNotExist(studentModel);
-
             var editStudent = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (editStudent == null)
                 throw new ApplicationException($"Student could not be loaded.");
@@ -71,8 +69,6 @@ namespace School.Application.Services
 
         public async Task Delete(StudentModel studentModel)
         {
-            await ValidateStudentIfNotExist(studentModel);
-
             var deletedStudent = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (deletedStudent == null)
                 throw new ApplicationException($"Student could not be loaded.");
@@ -85,13 +81,6 @@ namespace School.Application.Services
             var existingEntity = await _studentRepository.GetByIdAsync(studentModel.Id);
             if (existingEntity != null)
                 throw new ApplicationException($"{studentModel.ToString()} with this id already exists");
-        }
-
-        private async Task ValidateStudentIfNotExist(StudentModel studentModel)
-        {
-            var existingEntity = await _studentRepository.GetByIdAsync(studentModel.Id);
-            if (existingEntity == null)
-                throw new ApplicationException($"{studentModel.ToString()} with this id is not exists");
         }
     }
 }

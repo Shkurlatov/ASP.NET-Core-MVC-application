@@ -58,21 +58,17 @@ namespace School.Application.Services
 
         public async Task Update(GroupModel groupModel)
         {
-            await ValidateGroupIfNotExist(groupModel);
-
             var editGroup = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (editGroup == null)
                 throw new ApplicationException($"Group could not be loaded.");
 
-            ObjectMapper.Mapper.Map<GroupModel, Group>(groupModel, editGroup);
+            editGroup.Name = groupModel.Name;
 
             await _groupRepository.UpdateAsync(editGroup);
         }
 
         public async Task Delete(GroupModel groupModel)
         {
-            await ValidateGroupIfNotExist(groupModel);
-
             var deletedGroup = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (deletedGroup == null)
                 throw new ApplicationException($"Group could not be loaded.");
@@ -85,13 +81,6 @@ namespace School.Application.Services
             var existingEntity = await _groupRepository.GetByIdAsync(groupModel.Id);
             if (existingEntity != null)
                 throw new ApplicationException($"{groupModel.ToString()} with this id already exists");
-        }
-
-        private async Task ValidateGroupIfNotExist(GroupModel groupModel)
-        {
-            var existingEntity = await _groupRepository.GetByIdAsync(groupModel.Id);
-            if (existingEntity == null)
-                throw new ApplicationException($"{groupModel.ToString()} with this id is not exists");
         }
     }
 }

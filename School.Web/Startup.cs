@@ -26,7 +26,7 @@ namespace School.Web
         {
             ConfigureSchoolServices(services);            
 
-            services.AddRazorPages();
+            services.AddControllersWithViews();
         }        
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,7 +50,9 @@ namespace School.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
