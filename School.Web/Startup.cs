@@ -9,6 +9,7 @@ using School.Application.Models;
 using School.Application.Repositories;
 using School.Domain.Configuration;
 using School.Domain.Entities;
+using School.Domain.Interfaces;
 using School.Persistence.Data;
 
 namespace School.Web
@@ -62,9 +63,9 @@ namespace School.Web
 
             ConfigureDatabases(services);
 
-            services.AddScoped<Repository<Course>, CourseRepository>();
-            services.AddScoped<Repository<Group>, GroupRepository>();
-            services.AddScoped<Repository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<Group>, GroupRepository>();
+            services.AddScoped<IRepository<Student>, StudentRepository>();
 
             services.AddScoped<IService<CourseModel>, CourseService>();
             services.AddScoped<IService<GroupModel>, GroupService>();

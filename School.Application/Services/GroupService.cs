@@ -5,14 +5,15 @@ using School.Application.Mapper;
 using School.Application.Models;
 using School.Application.Repositories;
 using School.Domain.Entities;
+using School.Domain.Interfaces;
 
 namespace School.Application.Services
 {
     public class GroupService : IService<GroupModel>
     {
-        private readonly Repository<Group> _groupRepository;
+        private readonly IRepository<Group> _groupRepository;
 
-        public GroupService(Repository<Group> groupRepository)
+        public GroupService(IRepository<Group> groupRepository)
         {
             _groupRepository = groupRepository ?? throw new ArgumentNullException(nameof(groupRepository));
         }

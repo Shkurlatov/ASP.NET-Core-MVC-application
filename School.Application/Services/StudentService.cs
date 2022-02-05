@@ -5,14 +5,15 @@ using School.Application.Mapper;
 using School.Application.Models;
 using School.Application.Repositories;
 using School.Domain.Entities;
+using School.Domain.Interfaces;
 
 namespace School.Application.Services
 {
     public class StudentService : IService<StudentModel>
     {
-        private readonly Repository<Student> _studentRepository;
+        private readonly IRepository<Student> _studentRepository;
 
-        public StudentService(Repository<Student> studentRepository)
+        public StudentService(IRepository<Student> studentRepository)
         {
             _studentRepository = studentRepository ?? throw new ArgumentNullException(nameof(studentRepository));
         }

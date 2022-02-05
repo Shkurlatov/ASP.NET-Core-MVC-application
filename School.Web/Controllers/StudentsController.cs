@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using School.Application.Models;
-using School.Application.Services;
+using School.Domain.Interfaces;
 
 namespace School.Controllers
 {
