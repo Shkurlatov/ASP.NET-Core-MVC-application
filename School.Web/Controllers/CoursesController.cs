@@ -38,22 +38,98 @@ namespace School.Controllers
             return View(courseList);
         }
 
+
         // GET: Courses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? courseId)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
+            if (courseId == null)
+            {
+                return NotFound();
+            }
 
-            //var course = await _context.Courses
-            //    .FirstOrDefaultAsync(c => c.CourseID == id);
-            //if (course == null)
-            //{
-            //    return NotFound();
-            //}
+            var course = await _service.GetById(courseId.Value);
+            if (course == null)
+            {
+                return NotFound();
+            }
 
+            return View(course);
+        }
+
+        // GET: Courses/Create
+        public async Task<IActionResult> Create()
+        {
             return View();
+        }
+
+        // POST: Courses/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CourseModel course)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(course);
+            }
+
+            await _service.Create(course);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Courses/Edit/5
+        public async Task<IActionResult> Edit(int? courseId)
+        {
+            if (courseId == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _service.GetById(courseId.Value);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+        // POST: Courses/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CourseModel course)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(course);
+            }
+
+            await _service.Update(course);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Courses/Delete/5
+        public async Task<IActionResult> Delete(int? courseId)
+        {
+            if (courseId == null)
+            {
+                return NotFound();
+            }
+
+            var course = await _service.GetById(courseId.Value);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            return View(course);
+        }
+
+        // POST: Courses/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(CourseModel course)
+        {
+            await _service.Delete(course);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

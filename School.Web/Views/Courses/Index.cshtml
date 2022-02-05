@@ -6,6 +6,10 @@
 
 <h2>Courses</h2>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
@@ -21,21 +25,39 @@
         <tr>
             <th scope="col">Course Name</th>
             <th scope="col">Description</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var course in Model)
         {
-            <tr>
-                <td>
-                    <a class="btn"
-                       asp-controller="Groups" asp-action="Index"
-                       asp-route-parentId="@course.Id">
-                        @course.Name
-                    </a>
-                </td>
-                <td>@course.Description</td>
-            </tr>
+        <tr>
+            <td>
+                <a class="btn"
+                   asp-controller="Groups" asp-action="Index"
+                   asp-route-parentId="@course.Id">
+                    @course.Name
+                </a>
+            </td>
+            <td>@course.Description</td>
+            <td>
+                <a class="btn"
+                   asp-action="Details"
+                   asp-route-courseId="@course.Id">
+                    Details
+                </a>
+                <a class="btn"
+                   asp-action="Edit"
+                   asp-route-courseId="@course.Id">
+                    Edit
+                </a>
+                <a class="btn"
+                   asp-action="Delete"
+                   asp-route-courseId="@course.Id">
+                    Delete
+                </a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

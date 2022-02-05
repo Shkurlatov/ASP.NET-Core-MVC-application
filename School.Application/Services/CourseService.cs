@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
 using School.Application.Models;
-using School.Application.Repositories;
 using School.Domain.Entities;
 using School.Domain.Interfaces;
 
@@ -45,22 +44,43 @@ namespace School.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task Create(CourseModel model)
+        public async Task Create(CourseModel courseModel)
         {
-            // not used for this model
-            throw new NotImplementedException();
+            await ValidateGroupIfExist(courseModel);
+
+            var mappedEntity = ObjectMapper.Mapper.Map<Course>(courseModel);
+            if (mappedEntity == null)
+                throw new ApplicationException($"Group could not be mapped.");
+
+            await _courseRepository.AddAsync(mappedEntity);
         }
 
-        public Task Update(CourseModel model)
+        public async Task Update(CourseModel courseModel)
         {
-            // not used for this model
-            throw new NotImplementedException();
+            var editGroup = await _courseRepository.GetByIdAsync(courseModel.Id);
+            if (editGroup == null)
+                throw new ApplicationException($"Group could not be loaded.");
+
+            editGroup.Name = courseModel.Name;
+            editGroup.Description = courseModel.Description;
+
+            await _courseRepository.UpdateAsync(editGroup);
         }
 
-        public Task Delete(CourseModel model)
+        public async Task Delete(CourseModel courseModel)
         {
-            // not used for this model
-            throw new NotImplementedException();
+            var deletedCourse = await _courseRepository.GetByIdAsync(courseModel.Id);
+            if (deletedCourse == null)
+                throw new ApplicationException($"Group could not be loaded.");
+
+            await _courseRepository.DeleteAsync(deletedCourse);
+        }
+
+        private async Task ValidateGroupIfExist(CourseModel courseModel)
+        {
+            var existingEntity = await _courseRepository.GetByIdAsync(courseModel.Id);
+            if (existingEntity != null)
+                throw new ApplicationException($"{courseModel.ToString()} with this id already exists");
         }
     }
 }

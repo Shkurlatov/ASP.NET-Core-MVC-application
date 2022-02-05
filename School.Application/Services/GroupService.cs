@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
 using School.Application.Models;
-using School.Application.Repositories;
 using School.Domain.Entities;
 using School.Domain.Interfaces;
 
