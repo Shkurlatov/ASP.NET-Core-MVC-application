@@ -1,4 +1,5 @@
-﻿using School.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using School.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,6 @@ namespace School.Persistence.Data
 
             try
             {
-                schoolContext.Database.EnsureCreated();
-
                 if (schoolContext.Courses.Any())
                 {
                     return;

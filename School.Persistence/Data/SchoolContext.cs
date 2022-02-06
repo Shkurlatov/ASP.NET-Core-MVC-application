@@ -1,10 +1,11 @@
-﻿using School.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using School.Domain.Entities;
 
 namespace School.Persistence.Data
 {
-    public class SchoolContext : DbContext
+    public class SchoolContext : IdentityDbContext
     {
         public SchoolContext(DbContextOptions options) : base(options)
         {
@@ -19,6 +20,7 @@ namespace School.Persistence.Data
             builder.Entity<Student>(ConfigureStudent);
             builder.Entity<Group>(ConfigureGroup);
             builder.Entity<Course>(ConfigureCourse);
+            base.OnModelCreating(builder);
         }
 
         private void ConfigureStudent(EntityTypeBuilder<Student> builder)

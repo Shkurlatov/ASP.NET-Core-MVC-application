@@ -57,7 +57,7 @@ namespace School.Controllers
         }
 
         // GET: Courses/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }

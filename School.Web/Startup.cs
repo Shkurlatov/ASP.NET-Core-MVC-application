@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,18 +26,25 @@ namespace School.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureSchoolServices(services);            
-
+            services.AddDbContext<SchoolContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<SchoolContext>();
             services.AddControllersWithViews();
-        }        
+            services.AddRazorPages();
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            ConfigureSchoolServices(services);
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SchoolContext schoolContext)
         {
-            SeedDatabase(app);
+            SetDatabase(schoolContext);
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -47,6 +55,7 @@ namespace School.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -54,14 +63,13 @@ namespace School.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
 
         private void ConfigureSchoolServices(IServiceCollection services)
         {
             services.Configure<SchoolSettings>(Configuration);
-
-            ConfigureDatabases(services);
 
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Group>, GroupRepository>();
@@ -74,16 +82,9 @@ namespace School.Web
             services.AddHttpContextAccessor();
         }
 
-        public void ConfigureDatabases(IServiceCollection services)
+        private void SetDatabase(SchoolContext schoolContext)
         {
-            services.AddDbContext<SchoolContext>(c =>
-                c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-        }
-
-        private void SeedDatabase(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            using var schoolContext = serviceScope.ServiceProvider.GetService<SchoolContext>();
+            schoolContext.Database.Migrate();
             SchoolContextSeed.SeedAsync(schoolContext).Wait();
         }
     }
