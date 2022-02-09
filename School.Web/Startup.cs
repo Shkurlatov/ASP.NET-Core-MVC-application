@@ -13,6 +13,7 @@ using School.Domain.Configuration;
 using School.Domain.Entities;
 using School.Domain.Interfaces;
 using School.Persistence.Data;
+using System.Threading.Tasks;
 
 namespace School.Web
 {
@@ -31,6 +32,7 @@ namespace School.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchoolContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -70,9 +72,10 @@ namespace School.Web
             ConfigureSchoolServices(services);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SchoolContext schoolContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SchoolContext schoolContext, RoleManager<IdentityRole> roleManager)
         {
             SetDatabase(schoolContext);
+            SetRolesAsync(roleManager).Wait();
 
             if (env.IsDevelopment())
             {
@@ -119,6 +122,22 @@ namespace School.Web
         {
             schoolContext.Database.Migrate();
             SchoolContextSeed.SeedAsync(schoolContext).Wait();
+        }
+
+        private async Task SetRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                var adminRole = new IdentityRole("Admin");
+                await roleManager.CreateAsync(adminRole);
+            }
+
+            if (!await roleManager.RoleExistsAsync("Curator"))
+            {
+                var curatorRole = new IdentityRole("Curator");
+                await roleManager.CreateAsync(curatorRole);
+            }
         }
     }
 }
