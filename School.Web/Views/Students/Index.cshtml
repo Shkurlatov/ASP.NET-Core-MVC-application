@@ -3,11 +3,17 @@
 @{
     ViewData["Title"] = "Student";
 }
+@{
+    bool isAdmin = ViewContext.HttpContext.User.IsInRole("Admin");
+}
 
 <h2>Student</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (isAdmin)
+    {
+        <a asp-action="Create">Create New Student</a>
+    }
 </p>
 
 <form asp-action="Index" method="get">
@@ -52,16 +58,19 @@
                        asp-route-studentId="@student.Id">
                         Details
                     </a>
-                    <a class="btn"
-                       asp-action="Edit"
-                       asp-route-studentId="@student.Id">
-                        Edit
-                    </a>
-                    <a class="btn"
-                       asp-action="Delete"
-                       asp-route-studentId="@student.Id">
-                        Delete
-                    </a>
+                    @if (isAdmin)
+                    {
+                        <a class="btn"
+                           asp-action="Edit"
+                           asp-route-studentId="@student.Id">
+                            Edit
+                        </a>
+                        <a class="btn"
+                           asp-action="Delete"
+                           asp-route-studentId="@student.Id">
+                            Delete
+                        </a>
+                    }
                 </td>
             </tr>
         }

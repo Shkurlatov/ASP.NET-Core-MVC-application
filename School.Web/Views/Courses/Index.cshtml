@@ -3,11 +3,17 @@
 @{
     ViewData["Title"] = "Courses";
 }
+@{ 
+    bool isAdmin = ViewContext.HttpContext.User.IsInRole("Admin"); 
+}
 
 <h2>Courses</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (isAdmin)
+    {
+        <a asp-action="Create">Create New Course</a>
+    }
 </p>
 
 <form asp-action="Index" method="get">
@@ -31,33 +37,36 @@
     <tbody>
         @foreach (var course in Model)
         {
-        <tr>
-            <td>
-                <a class="btn"
-                   asp-controller="Groups" asp-action="Index"
-                   asp-route-parentId="@course.Id">
-                    @course.Name
-                </a>
-            </td>
-            <td>@course.Description</td>
-            <td>
-                <a class="btn"
-                   asp-action="Details"
-                   asp-route-courseId="@course.Id">
-                    Details
-                </a>
-                <a class="btn"
-                   asp-action="Edit"
-                   asp-route-courseId="@course.Id">
-                    Edit
-                </a>
-                <a class="btn"
-                   asp-action="Delete"
-                   asp-route-courseId="@course.Id">
-                    Delete
-                </a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <a class="btn"
+                       asp-controller="Groups" asp-action="Index"
+                       asp-route-parentId="@course.Id">
+                        @course.Name
+                    </a>
+                </td>
+                <td>@course.Description</td>
+                <td>
+                    <a class="btn"
+                       asp-action="Details"
+                       asp-route-courseId="@course.Id">
+                        Details
+                    </a>
+                    @if (isAdmin)
+                    {
+                        <a class="btn"
+                           asp-action="Edit"
+                           asp-route-courseId="@course.Id">
+                            Edit
+                        </a>
+                        <a class="btn"
+                           asp-action="Delete"
+                           asp-route-courseId="@course.Id">
+                            Delete
+                        </a>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

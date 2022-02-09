@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using School.Application.Models;
 using School.Domain.Interfaces;
@@ -64,6 +65,7 @@ namespace School.Controllers
 
         // POST: Courses/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseModel course)
         {
@@ -95,6 +97,7 @@ namespace School.Controllers
 
         // POST: Courses/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CourseModel course)
         {
@@ -125,6 +128,7 @@ namespace School.Controllers
 
         // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(CourseModel course)
         {

@@ -50,8 +50,9 @@
         <a class="btn"
            asp-controller="Students" asp-action="Index"
            asp-route-parentId="@Model.Id">
-            <input type="submit" value="Students" class="btn btn-secondary" /> |
-            <b asp-action="Index">Back to List</b>
+            <input type="submit" value="Students" class="btn btn-secondary" />
         </a>
+        <a>|</a>
+        <a asp-action="Index">Back to List</a>
     }
 </div>
