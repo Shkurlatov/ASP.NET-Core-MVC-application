@@ -13,20 +13,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using School.Domain.Entities;
 
 namespace School.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -45,6 +46,16 @@ namespace School.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -74,17 +85,39 @@ namespace School.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                User user;
+                if (_userManager.Users.Count() == 0)
+                {
+                    user = new Admin 
+                    { 
+                        UserName = Input.Email, 
+                        Email = Input.Email, 
+                        FirstName = Input.FirstName, 
+                        LastName = Input.LastName
+                    };
+                }
+                else
+                {
+                    user = new Curator
+                    {
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName
+                    };
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    if (_userManager.Users.Count() > 1)
-                    {
-                        await _userManager.AddToRoleAsync(user, "Curator");
-                    }
-                    else
+                    if (user.GetType().Name == "Admin")
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+
+                    if (user.GetType().Name == "Curator")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Curator");
                     }
 
                     _logger.LogInformation("User created a new account with password.");

@@ -16,5 +16,7 @@ namespace School.Domain.Entities
         public Course Course { get; set; }
 
         public ICollection<Student> Students { get; private set; }
+
+        public Curator Curator { get; set; }
     }
 }

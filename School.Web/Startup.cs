@@ -31,7 +31,7 @@ namespace School.Web
             services.AddDbContext<SchoolContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SchoolContext>();
             services.AddControllersWithViews();
@@ -126,7 +126,6 @@ namespace School.Web
 
         private async Task SetRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-
             if (!await roleManager.RoleExistsAsync("Admin"))
             {
                 var adminRole = new IdentityRole("Admin");

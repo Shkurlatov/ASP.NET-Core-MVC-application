@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using School.Domain.Entities;
 
 namespace School.Persistence.Data
 {
-    public class SchoolContext : IdentityDbContext
+    public class SchoolContext : IdentityDbContext<User>
     {
         public SchoolContext(DbContextOptions options) : base(options)
         {
@@ -14,6 +15,8 @@ namespace School.Persistence.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Curator> Curators { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
