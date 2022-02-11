@@ -25,13 +25,31 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
+        @if (isAdmin)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Curator)
+            </dt>
+            @if (Model.Curator != null)
+            {
+                <dd class="col-sm-10">
+                    @(Model.Curator.FirstName + " " + Model.Curator.LastName)
+                </dd>
+            }
+            else
+            {
+                <dd class="col-sm-10">
+                    None
+                </dd>
+            }
+        }
     </dl>
 </div>
 <div>
     @if (isAdmin)
     {
         <a asp-action="Edit" asp-route-groupId="@Model.Id">Edit</a>
-        < a >|</ a >
+        <a >|</a>
     }
     <a asp-action="Index">Back to List</a>
 </div>

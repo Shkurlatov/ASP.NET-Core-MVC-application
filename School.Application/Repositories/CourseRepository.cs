@@ -43,22 +43,22 @@ namespace School.Application.Repositories
             throw new System.NotImplementedException();
         }
 
-        public async Task<Course> AddAsync(Course entity)
+        public async Task<Course> AddAsync(Course course)
         {
-            _dbContext.Set<Course>().Add(entity);
+            _dbContext.Set<Course>().Add(course);
             await _dbContext.SaveChangesAsync();
-            return entity;
+            return course;
         }
 
-        public async Task UpdateAsync(Course entity)
+        public async Task UpdateAsync(Course course)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Entry(course).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Course entity)
+        public async Task DeleteAsync(Course course)
         {
-            _dbContext.Set<Course>().Remove(entity);
+            _dbContext.Set<Course>().Remove(course);
             await _dbContext.SaveChangesAsync();
         }
     }

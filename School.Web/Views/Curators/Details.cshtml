@@ -1,18 +1,31 @@
-﻿@model School.Application.Models.StudentModel
+﻿@using School.Domain.Entities
+@model Curator
 
 @{
     ViewData["Title"] = "Details";
-}
-@{
-    bool isAdmin = ViewContext.HttpContext.User.IsInRole("Admin");
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Student</h4>
+    <h4>Curator</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            Group
+        </dt>
+        @if (Model.Group != null)
+        {
+            <dd class="col-sm-10">
+                @Model.Group.Name
+            </dd>
+        }
+        else
+        {
+            <dd class="col-sm-10">
+                None
+            </dd>
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -25,19 +38,10 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Group)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Group.Name)
-        </dd>
     </dl>
 </div>
 <div>
-    @if (isAdmin)
-    {
-        <a asp-action="Index" asp-route-studentId="@Model.Id">Edit</a>
-        <a >|</a>
-    }
+    <a asp-action="Edit" asp-route-curatorId="@Model.Id">Edit</a>
+    |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -110,10 +110,12 @@ namespace School.Web
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Group>, GroupRepository>();
             services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<CuratorRepository>();
 
             services.AddScoped<IService<CourseModel>, CourseService>();
             services.AddScoped<IService<GroupModel>, GroupService>();
             services.AddScoped<IService<StudentModel>, StudentService>();
+            services.AddScoped<CuratorService>();
 
             services.AddHttpContextAccessor();
         }

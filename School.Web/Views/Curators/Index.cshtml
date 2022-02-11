@@ -1,0 +1,53 @@
+﻿@using School.Domain.Entities
+@model IEnumerable<Curator>
+
+@{
+    ViewData["Title"] = "Curators";
+}
+
+<h2>Curators</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Group</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var curator in Model)
+        {
+        <tr>
+            <td>@curator.FirstName @curator.LastName</td>
+            <td>@curator.Email</td>
+            @if (curator.Group != null)
+            {
+                <td>@curator.Group.Name</td>
+            }
+            else
+            {
+                <td>None</td>
+            }
+            <td>
+                <a class="btn"
+                   asp-action="Details"
+                   asp-route-curatorId="@curator.Id">
+                    Details
+                </a>
+                <a class="btn"
+                   asp-action="Edit"
+                   asp-route-curatorId="@curator.Id">
+                    Edit
+                </a>
+                <a class="btn"
+                   asp-action="Delete"
+                   asp-route-curatorId="@curator.Id">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

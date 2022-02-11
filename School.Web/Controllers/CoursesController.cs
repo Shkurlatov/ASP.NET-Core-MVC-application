@@ -39,7 +39,6 @@ namespace School.Controllers
             return View(courseList);
         }
 
-
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? courseId)
         {

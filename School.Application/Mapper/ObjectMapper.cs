@@ -27,6 +27,7 @@ namespace School.Application.Mapper
             CreateMap<Student, StudentModel>().ReverseMap();
             CreateMap<Group, GroupModel>().ReverseMap();
             CreateMap<Course, CourseModel>().ReverseMap();
+            CreateMap<Curator, CuratorModel>().ReverseMap();
         }
     }
 }

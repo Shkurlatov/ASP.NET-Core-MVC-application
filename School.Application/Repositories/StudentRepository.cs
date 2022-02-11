@@ -47,22 +47,22 @@ namespace School.Application.Repositories
             return await students;
         }
 
-        public async Task<Student> AddAsync(Student entity)
+        public async Task<Student> AddAsync(Student student)
         {
-            _dbContext.Set<Student>().Add(entity);
+            _dbContext.Set<Student>().Add(student);
             await _dbContext.SaveChangesAsync();
-            return entity;
+            return student;
         }
 
-        public async Task UpdateAsync(Student entity)
+        public async Task UpdateAsync(Student student)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Entry(student).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Student entity)
+        public async Task DeleteAsync(Student student)
         {
-            _dbContext.Set<Student>().Remove(entity);
+            _dbContext.Set<Student>().Remove(student);
             await _dbContext.SaveChangesAsync();
         }
     }

@@ -31,48 +31,63 @@
         <tr>
             <th scope="col">Group Name</th>
             <th scope="col">Course</th>
+            @if (isAdmin)
+            {
+                <th scope="col">Curator</th>
+            }
             <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var group in Model)
         {
-            <tr>
-                <td>
+        <tr>
+            <td>
+                <a class="btn"
+                   asp-controller="Students" asp-action="Index"
+                   asp-route-parentId="@group.Id">
+                    @group.Name
+                </a>
+            </td>
+            <td>
+                <a class="btn"
+                   asp-controller="Courses" asp-action="Index"
+                   asp-route-courseId="@group.CourseId">
+                    @Html.DisplayFor(modelItem => group.Course.Name)
+                </a>
+            </td>
+            @if (isAdmin)
+            {
+                @if (group.Curator != null)
+                {
+                    <td>@(group.Curator.FirstName + " " + group.Curator.LastName)</td>
+                }
+                else
+                {
+                    <td>None</td>
+                }
+            }
+            <td>
+                <a class="btn"
+                   asp-action="Details"
+                   asp-route-groupId="@group.Id">
+                    Details
+                </a>
+                @if (isAdmin)
+                {
                     <a class="btn"
-                       asp-controller="Students" asp-action="Index"
-                       asp-route-parentId="@group.Id">
-                        @group.Name
-                    </a>
-                </td>
-                <td>
-                    <a class="btn"
-                       asp-controller="Courses" asp-action="Index"
-                       asp-route-courseId="@group.CourseId">
-                        @Html.DisplayFor(modelItem => group.Course.Name)
-                    </a>
-                </td>
-                <td>
-                    <a class="btn"
-                       asp-action="Details"
+                       asp-action="Edit"
                        asp-route-groupId="@group.Id">
-                        Details
+                        Edit
                     </a>
-                    @if (isAdmin)
-                    {
-                        <a class="btn"
-                           asp-action="Edit"
-                           asp-route-groupId="@group.Id">
-                            Edit
-                        </a>
-                        <a class="btn"
-                           asp-action="Delete"
-                           asp-route-groupId="@group.Id">
-                            Delete
-                        </a>
-                    }
-                </td>
-            </tr>
+                    <a class="btn"
+                       asp-action="Delete"
+                       asp-route-groupId="@group.Id">
+                        Delete
+                    </a>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>
