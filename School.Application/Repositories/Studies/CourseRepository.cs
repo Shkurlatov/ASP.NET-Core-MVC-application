@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Domain.Entities.Studies;
+using School.Domain.Interfaces.Studies;
 using School.Persistence.Data;
 
-namespace School.Application.Repositories
+namespace School.Application.Repositories.Studies
 {
-    public class CourseRepository : IRepository<Course>
+    public class CourseRepository : IStudyRepository<Course>
     {
         private readonly SchoolContext _dbContext;
 

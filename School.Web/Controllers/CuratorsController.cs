@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using School.Application.Models;
-using School.Application.Services;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
-using School.Persistence.Data;
+using School.Application.Models.Studies;
+using School.Application.Models.Users;
+using School.Domain.Interfaces.Studies;
+using School.Domain.Interfaces.Users;
 
 namespace School.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CuratorsController : Controller
     {
-        private readonly SchoolContext _dbContext;
-        private readonly CuratorService _curatorService;
-        private readonly IService<GroupModel> _parentService;
+        private readonly IUserService<CuratorModel> _curatorService;
+        private readonly IStudyService<GroupModel> _parentService;
 
-        public CuratorsController(SchoolContext dbContext, CuratorService curatorService, IService<GroupModel> parentService)
+        public CuratorsController(IUserService<CuratorModel> curatorService, IStudyService<GroupModel> parentService)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _curatorService = curatorService ?? throw new ArgumentNullException(nameof(curatorService));
             _parentService = parentService ?? throw new ArgumentNullException(nameof(parentService));
         }
@@ -31,8 +26,7 @@ namespace School.Controllers
         // GET: Curators
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Curator> curatorList;
-            curatorList = await _dbContext.Set<Curator>().Include(x => x.Group).AsNoTracking().ToListAsync();
+            var curatorList = await _curatorService.GetAll();
             return View(curatorList);
         }
 
@@ -44,7 +38,7 @@ namespace School.Controllers
                 return NotFound();
             }
 
-            var curator = await _dbContext.Set<Curator>().Include(x => x.Group).FirstOrDefaultAsync(x => x.Id == curatorId);
+            var curator = await _curatorService.GetById(curatorId);
             if (curator == null)
             {
                 return NotFound();
@@ -101,7 +95,7 @@ namespace School.Controllers
                 return NotFound();
             }
 
-            var curator = await _dbContext.Set<Curator>().Include(x => x.Group).FirstOrDefaultAsync(x => x.Id == curatorId);
+            var curator = await _curatorService.GetById(curatorId);
             if (curator == null)
             {
                 return NotFound();

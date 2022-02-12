@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using School.Application.Models;
-using School.Domain.Interfaces;
+using School.Application.Models.Studies;
+using School.Domain.Interfaces.Studies;
 
 namespace School.Controllers
 {
     public class CoursesController : Controller
     {
-        private readonly IService<CourseModel> _service;
+        private readonly IStudyService<CourseModel> _service;
 
-        public CoursesController(IService<CourseModel> service)
+        public CoursesController(IStudyService<CourseModel> service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }

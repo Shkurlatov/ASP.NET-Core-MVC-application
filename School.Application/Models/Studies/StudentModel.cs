@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace School.Application.Models
+namespace School.Application.Models.Studies
 {
     public class StudentModel : BaseModel
     {

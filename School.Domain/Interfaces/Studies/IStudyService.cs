@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace School.Domain.Interfaces
+namespace School.Domain.Interfaces.Studies
 {
-    public interface IService<T>
+    public interface IStudyService<T>
     {
         Task<IEnumerable<T>> GetAll();
         Task<IEnumerable<T>> GetBySearch(string searchTerm);

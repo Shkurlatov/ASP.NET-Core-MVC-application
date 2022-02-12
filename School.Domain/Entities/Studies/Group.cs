@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using School.Domain.Entities.Users;
 
-namespace School.Domain.Entities
+namespace School.Domain.Entities.Studies
 {
     public class Group : Entity
     {

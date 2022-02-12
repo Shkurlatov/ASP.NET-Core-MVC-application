@@ -6,12 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using School.Application.Services;
-using School.Application.Models;
-using School.Application.Repositories;
+using School.Application.Services.Studies;
+using School.Application.Services.Users;
+using School.Application.Models.Studies;
+using School.Application.Models.Users;
+using School.Application.Repositories.Studies;
+using School.Application.Repositories.Users;
 using School.Domain.Configuration;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Domain.Entities.Studies;
+using School.Domain.Entities.Users;
+using School.Domain.Interfaces.Studies;
+using School.Domain.Interfaces.Users;
 using School.Persistence.Data;
 using System.Threading.Tasks;
 
@@ -107,15 +112,15 @@ namespace School.Web
         {
             services.Configure<SchoolSettings>(Configuration);
 
-            services.AddScoped<IRepository<Course>, CourseRepository>();
-            services.AddScoped<IRepository<Group>, GroupRepository>();
-            services.AddScoped<IRepository<Student>, StudentRepository>();
-            services.AddScoped<CuratorRepository>();
+            services.AddScoped<IStudyRepository<Course>, CourseRepository>();
+            services.AddScoped<IStudyRepository<Group>, GroupRepository>();
+            services.AddScoped<IStudyRepository<Student>, StudentRepository>();
+            services.AddScoped<IUserRepository<Curator>, CuratorRepository>();
 
-            services.AddScoped<IService<CourseModel>, CourseService>();
-            services.AddScoped<IService<GroupModel>, GroupService>();
-            services.AddScoped<IService<StudentModel>, StudentService>();
-            services.AddScoped<CuratorService>();
+            services.AddScoped<IStudyService<CourseModel>, CourseService>();
+            services.AddScoped<IStudyService<GroupModel>, GroupService>();
+            services.AddScoped<IStudyService<StudentModel>, StudentService>();
+            services.AddScoped<IUserService<CuratorModel>, CuratorService>();
 
             services.AddHttpContextAccessor();
         }

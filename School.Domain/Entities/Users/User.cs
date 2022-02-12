@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace School.Domain.Entities
+namespace School.Domain.Entities.Users
 {
     public abstract class User : IdentityUser
     {

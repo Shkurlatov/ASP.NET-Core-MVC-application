@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using School.Application.Models;
-using School.Domain.Interfaces;
+using School.Application.Models.Studies;
+using School.Domain.Interfaces.Studies;
 
 namespace School.Controllers
 {
     public class StudentsController : Controller
     {
-        private readonly IService<StudentModel> _service;
-        private readonly IService<GroupModel> _parentService;
+        private readonly IStudyService<StudentModel> _service;
+        private readonly IStudyService<GroupModel> _parentService;
 
-        public StudentsController(IService<StudentModel> service, IService<GroupModel> parentService)
+        public StudentsController(IStudyService<StudentModel> service, IStudyService<GroupModel> parentService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _parentService = parentService ?? throw new ArgumentNullException(nameof(parentService));

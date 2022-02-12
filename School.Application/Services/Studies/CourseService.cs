@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
-using School.Application.Models;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Application.Models.Studies;
+using School.Domain.Entities.Studies;
+using School.Domain.Interfaces.Studies;
 
-namespace School.Application.Services
+namespace School.Application.Services.Studies
 {
-    public class CourseService : IService<CourseModel>
+    public class CourseService : IStudyService<CourseModel>
     {
-        private readonly IRepository<Course> _courseRepository;
+        private readonly IStudyRepository<Course> _courseRepository;
 
-        public CourseService(IRepository<Course> courseRepository)
+        public CourseService(IStudyRepository<Course> courseRepository)
         {
             _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
         }

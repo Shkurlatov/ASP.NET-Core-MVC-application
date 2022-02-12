@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using School.Application.Models.Studies;
 
-namespace School.Application.Models
+namespace School.Application.Models.Users
 {
     public class CuratorModel
     {

@@ -1,4 +1,6 @@
-﻿namespace School.Domain.Entities
+﻿using School.Domain.Entities.Studies;
+
+namespace School.Domain.Entities.Users
 {
     public class Curator : User
     {

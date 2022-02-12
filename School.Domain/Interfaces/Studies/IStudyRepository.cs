@@ -1,10 +1,10 @@
-﻿using School.Domain.Entities;
+﻿using School.Domain.Entities.Studies;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace School.Domain.Interfaces
+namespace School.Domain.Interfaces.Studies
 {
-    public interface IRepository<T> where T : Entity
+    public interface IStudyRepository<T> where T : Entity
     {
         Task<IReadOnlyList<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);

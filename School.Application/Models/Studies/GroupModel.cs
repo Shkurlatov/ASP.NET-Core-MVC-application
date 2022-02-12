@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using School.Domain.Entities;
+using School.Application.Models.Users;
 
-namespace School.Application.Models
+namespace School.Application.Models.Studies
 {
     public class GroupModel : BaseModel
     {
@@ -10,6 +9,6 @@ namespace School.Application.Models
         public string Name { get; set; }
         public CourseModel Course { get; set; }
         public ICollection<StudentModel> Students { get; private set; }
-        public Curator Curator { get; set; }
+        public CuratorModel Curator { get; set; }
     }
 }

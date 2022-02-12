@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using School.Application.Mapper;
-using School.Application.Models;
-using School.Application.Repositories;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Application.Models.Users;
+using School.Domain.Entities.Users;
+using School.Domain.Interfaces.Users;
 
-namespace School.Application.Services
+namespace School.Application.Services.Users
 {
-    public class CuratorService
+    public class CuratorService : IUserService<CuratorModel>
     {
-        private readonly CuratorRepository _curatorRepository;
+        private readonly IUserRepository<Curator> _curatorRepository;
 
-        public CuratorService(CuratorRepository curatorRepository)
+        public CuratorService(IUserRepository<Curator> curatorRepository)
         {
             _curatorRepository = curatorRepository ?? throw new ArgumentNullException(nameof(curatorRepository));
+        }
+
+        public async Task<IEnumerable<CuratorModel>> GetAll()
+        {
+            var curatorList = await _curatorRepository.GetAllAsync();
+            var mapped = ObjectMapper.Mapper.Map<IEnumerable<CuratorModel>>(curatorList);
+            return mapped;
         }
 
         public async Task<CuratorModel> GetById(string curatorId)

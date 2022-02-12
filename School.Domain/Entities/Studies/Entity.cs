@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace School.Domain.Entities
+namespace School.Domain.Entities.Studies
 {
     public class Entity
     {

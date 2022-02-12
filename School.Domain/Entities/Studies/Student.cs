@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace School.Domain.Entities
+namespace School.Domain.Entities.Studies
 {
     public class Student : Entity
     {

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using School.Domain.Entities;
-using School.Domain.Interfaces;
+using School.Domain.Entities.Studies;
+using School.Domain.Interfaces.Studies;
 using School.Persistence.Data;
 
-namespace School.Application.Repositories
+namespace School.Application.Repositories.Studies
 {
-    public class StudentRepository : IRepository<Student>
+    public class StudentRepository : IStudyRepository<Student>
     {
         private readonly SchoolContext _dbContext;
 
@@ -17,7 +17,6 @@ namespace School.Application.Repositories
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-
 
         public async Task<IReadOnlyList<Student>> GetAllAsync()
         {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Domain.Entities;
+using School.Domain.Entities.Studies;
 using System;
 using System.Collections.Generic;
 using System.Linq;

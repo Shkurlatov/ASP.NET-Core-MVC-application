@@ -1,5 +1,7 @@
-﻿using School.Application.Models;
-using School.Domain.Entities;
+﻿using School.Application.Models.Studies;
+using School.Application.Models.Users;
+using School.Domain.Entities.Studies;
+using School.Domain.Entities.Users;
 using AutoMapper;
 using System;
 
