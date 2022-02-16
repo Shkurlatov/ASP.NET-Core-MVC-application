@@ -91,7 +91,7 @@ namespace School.Controllers
                 return NotFound();
             }
 
-            return View(course);
+            return View("Edit", course);
         }
 
         // POST: Courses/Edit/5
