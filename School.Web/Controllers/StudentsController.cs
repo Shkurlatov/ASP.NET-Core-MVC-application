@@ -103,7 +103,7 @@ namespace School.Controllers
             }
 
             ViewData["GroupId"] = new SelectList(await _parentService.GetAll(), "Id", "Name");
-            return View(student);
+            return View("Edit", student);
         }
 
         // POST: Groups/Edit/5
