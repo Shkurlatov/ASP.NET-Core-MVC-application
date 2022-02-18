@@ -170,6 +170,21 @@ namespace School.Web.Tests
         }
 
         [Fact]
+        public void Create_ReceiveGroupModel_RedirectToIndexView()
+        {
+            //Arrange
+            A.CallTo(() => _groupServiceFake.Create(A<GroupModel>.Ignored));
+
+            //Act
+            IActionResult result = _sut.Create(_groups.First()).Result;
+
+            //Assert
+            result
+                .Should()
+                .BeOfType<RedirectToActionResult>();
+        }
+
+        [Fact]
         public void Edit_ReceiveNullId_ReturnNotFoundStatusCode()
         {
             //Arrange
@@ -220,7 +235,7 @@ namespace School.Web.Tests
         }
 
         [Fact]
-        public void DeleteConfirm_ValidGroupId_RedirectToIndexView()
+        public void DeleteConfirm_ReceiveGroupModel_RedirectToIndexView()
         {
             //Arrange
             A.CallTo(() => _groupServiceFake.Delete(A<GroupModel>.Ignored));

@@ -151,6 +151,21 @@ namespace School.Web.Tests
         }
 
         [Fact]
+        public void Create_ReceiveCourseModel_RedirectToIndexView()
+        {
+            //Arrange
+            A.CallTo(() => _courseServiceFake.Create(A<CourseModel>.Ignored));
+
+            //Act
+            IActionResult result = _sut.Create(_courses.First()).Result;
+
+            //Assert
+            result
+                .Should()
+                .BeOfType<RedirectToActionResult>();
+        }
+
+        [Fact]
         public void Edit_ReceiveNullId_ReturnNotFoundStatusCode()
         {
             //Arrange
@@ -201,7 +216,7 @@ namespace School.Web.Tests
         }
 
         [Fact]
-        public void DeleteConfirm_ValidCourseId_RedirectToIndexView()
+        public void DeleteConfirm_ReceiveCourseModel_RedirectToIndexView()
         {
             //Arrange
             A.CallTo(() => _courseServiceFake.Delete(A<CourseModel>.Ignored));
