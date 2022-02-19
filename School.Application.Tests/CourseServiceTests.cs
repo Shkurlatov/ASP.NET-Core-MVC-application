@@ -73,7 +73,7 @@ namespace School.Application.Tests
         }
 
         [Fact]
-        public async Task GetBySearch_ReceiveSearchTerm_ReturnTestListOfCourse()
+        public async Task GetBySearch_ReceiveSearchTerm_ReturnListOfCourseContainsSearchTerm()
         {
             //Arrange
             string searchTerm = "n";
